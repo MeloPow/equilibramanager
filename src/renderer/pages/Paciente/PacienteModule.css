@@ -1,0 +1,136 @@
+/* src/renderer/pages/PacienteModule.css */
+/*background*/
+.paciente-background {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*index.tsx de paciente*/
+.paciente-container {
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  border-top: 12px;
+}
+
+.menu-button {
+  display: block;
+  background-color: #481d74;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 30px;
+  margin: 10px auto;
+  cursor: pointer;
+  width: 600px;
+  height: 100px;
+  transition: background 0.3s ease;
+}
+
+.menu-button:hover {
+  background-color: #8a4bd1;
+}
+
+.options-box {
+  background-color: linear-gradient(135deg, #d0f0e8, #c7eaff);
+  padding: 20px 20px;
+  border-radius: 20px;
+  text-align: center;
+  border-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.option-button {
+  display: block;
+  background-color: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 6px auto;
+  width: 90%;
+  max-width: 500px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.option-button:hover {
+  background-color: #3949ab;
+  transform: scale(1.02);
+}
+
+/*Para listar.tsx*/
+.paciente-card {
+  width: 100%;
+  max-width: 700px;
+  margin: 8px auto;
+  padding: 20px;
+  border-radius: 18px;
+  border: solid 2px;
+  border-color: #481d74;
+  background: linear-gradient(135deg, #d0f0e8, #c7eaff);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.paciente-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.nomeFuncao {
+  color: 'white';
+  background-color: '#481d74';
+  border-radius: '12px';
+  padding-top: '10px';
+}
+
+/* Componente de formulário reutilizável */
+.input-simples .MuiInputBase-root {
+  background-color: #f3f3f3;
+  border-radius: 6px;
+}
+
+.botao-submit {
+  background-color: #38c6e5;
+  color: white;
+  padding: 14px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  text-transform: none;
+  font-weight: bold;
+}
+
+.botao-submit:hover {
+  background-color: #2bb2d0;
+}
+
+/*Botão de voltar reutilizável*/
+.botao-voltar-global {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  background: none;
+  color: #7e57c2;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-transform: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.botao-voltar-global:hover {
+  color: #5e35b1;
+  text-decoration: underline;
+}
