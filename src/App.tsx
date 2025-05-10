@@ -10,6 +10,8 @@ import MainLayout from './renderer/layouts/MainLayout';
 import AdicionarPaciente from './renderer/pages/Paciente/adicionar';
 import ListarPacientes from './renderer/pages/Paciente/listar';
 import EditarPaciente from './renderer/pages/Paciente/editar';
+import Calendario from './renderer/pages/Agenda/calendario';
+import NovaSessao from './renderer/pages/Sessao/novaSessao';
 
 export default function App() {
     return (
@@ -26,7 +28,8 @@ export default function App() {
                     <Route path="/paciente/adicionar" element={<AdicionarPaciente />} />
                     <Route path="/paciente/listar" element={<ListarPacientes />} />
                     <Route path="/paciente/editar" element={<EditarPaciente />} />
-
+                    <Route path="/agenda/calendario" element={<Calendario />} />
+                    <Route path="/sessao/nova" element={<NovaSessao />} />
                 </Route>
             </Routes>
         </Router>

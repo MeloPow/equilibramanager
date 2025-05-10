@@ -1,4 +1,4 @@
-// === database.ts ===
+// src/db/database.ts
 import Database from 'better-sqlite3';
 import fs from 'fs';
 import path from 'path';
@@ -13,8 +13,9 @@ export function initializeDatabase(dbPath: string) {
   const db = new Database(dbPath);
   db.pragma('journal_mode = WAL');
 
-  // Criação da tabela de pacientes
-  const createTable = `
+  // Criação separada das tabelas
+  db.prepare(
+    `
     CREATE TABLE IF NOT EXISTS pacientes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nome_completo TEXT NOT NULL,
@@ -29,16 +30,29 @@ export function initializeDatabase(dbPath: string) {
       observacoes TEXT,
       status TEXT NOT NULL DEFAULT 'ativo'
     )
-  `;
-  db.prepare(createTable).run();
+  `
+  ).run();
 
-  // Caso precise garantir existência da coluna 'status' após mudanças
+  db.prepare(
+    `
+    CREATE TABLE IF NOT EXISTS sessoes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      paciente_id INTEGER NOT NULL,
+      data_hora TEXT NOT NULL,
+      status TEXT NOT NULL,
+      observacoes TEXT,
+      FOREIGN KEY (paciente_id) REFERENCES pacientes(id)
+    )
+  `
+  ).run();
+
+  // Tentativa de adicionar coluna (só se não existir)
   try {
     db.prepare(
       `ALTER TABLE pacientes ADD COLUMN status TEXT NOT NULL DEFAULT 'ativo'`
     ).run();
   } catch (e) {
-    // ignora se já existir
+    // Ignora se já existir
   }
 
   dbInstance = db;

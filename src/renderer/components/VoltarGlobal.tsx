@@ -8,7 +8,7 @@ interface VoltarGlobalProps {
    drawerOpen?: boolean; // 👈 nova prop
 }
 
-export default function VoltarGlobal({ destino = '/paciente', texto = 'Voltar para pacientes', drawerOpen = false, }: VoltarGlobalProps) {
+export default function VoltarGlobal({ destino = '/agenda', texto = 'Voltar para agenda', drawerOpen = false, }: VoltarGlobalProps) {
    const navigate = useNavigate();
 
    return (

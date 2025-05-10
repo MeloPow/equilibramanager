@@ -1,0 +1,247 @@
+// src/pages/Agenda/calendario.tsx
+import React, { useState, useMemo } from 'react';
+import { Box, Typography, Button, Paper } from '@mui/material';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { format, addDays, subDays, startOfDay, isToday } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { Colors } from '../../styles/Colors';
+import background from '../../../assets/images/background3.png'
+import imagii from '../../../assets/images/background2.png'
+
+
+interface Sessao {
+   id: number;
+   paciente: number;
+   data_hora: string;
+   status: string;
+   observacoes?: string;
+   paciente_nome: string;
+}
+
+const horarios = Array.from({ length: 14 }, (_, i) => `${i + 6}:00`);
+
+export default function Calendario() {
+   const [startDate, setStartDate] = useState<Date>(startOfDay(new Date()));
+   const [celulaSelecionada, setCelulaSelecionada] = useState<string | null>(null);
+
+   const diasMostrados = useMemo(() => Array.from({ length: 7 }, (_, i) => addDays(startDate, i)), [startDate]);
+
+   const eventos: Sessao[] = [
+      {
+         id: 1,
+         paciente: 1,
+         data_hora: new Date().setHours(9, 0, 0, 0).toString(),
+         status: 'agendada',
+         paciente_nome: 'João Silva'
+      },
+      {
+         id: 2,
+         paciente: 2,
+         data_hora: addDays(new Date(), 1).setHours(10, 0, 0, 0).toString(),
+         status: 'realizada',
+         paciente_nome: 'Maria Souza'
+      },
+   ];
+
+   const mapaSessoes = useMemo(() => {
+      const mapa: { [key: string]: Sessao[] } = {};
+      eventos.forEach(sessao => {
+         const data = new Date(Number(sessao.data_hora));
+         const dia = data.toDateString();
+         const hora = `${data.getHours()}:00`;
+         const chave = `${hora}-${dia}`;
+         if (!mapa[chave])
+            mapa[chave] = [];
+         mapa[chave].push(sessao);
+      });
+      return mapa;
+   }, [eventos]);
+
+   const handleAnterior = () => {
+      const novaData = subDays(startDate, 1);
+      const umMesAtras = subDays(new Date(), 30);
+      if (novaData >= umMesAtras) setStartDate(novaData);
+   };
+
+   const handleProximo = () => {
+      const novaData = addDays(startDate, 1);
+      const limite = addDays(new Date(), 15);
+      if (novaData <= limite) setStartDate(novaData);
+   };
+
+   const rangeDiasTexto = `${format(diasMostrados[0], 'dd/MM')} ~ ${format(diasMostrados[6], 'dd/MM')}`;
+
+   return (
+      //background
+      <div className="paciente-background" style={{ backgroundImage: `url(${background})` }}>
+
+         {/* Box que envolve tudo */}
+         <Box sx={{ p: 6 }}>
+
+            {/* Box nos quais estão range de dias e botões de anterior e proximo */}
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+
+               {/**Botão Anterior */}
+               <Button onClick={handleAnterior}
+                  sx={{
+                     backgroundColor: Colors.azulelegante,
+                     color: Colors.brancocinza,
+                     padding: '7px 12px',
+                     fontSize: '1.1rem',
+                     borderRadius: '6px',
+                     textTransform: 'none',
+                     display: 'flex', alignItems: 'center',
+                     gap: 1,
+                     '&:hover': { backgroundColor: Colors.azulmarin },
+                  }}>
+                  <ArrowBackIosNewIcon fontSize="small" /> Anterior
+               </Button>
+
+               {/** Intervalo de dias */}
+               <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  border: '2px solid',
+                  borderColor: Colors.roxobom,
+                  borderRadius: '12px',
+                  px: 2,
+                  py: 1
+               }}>
+                  <CalendarTodayIcon sx={{ color: Colors.roxobom }} />
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: Colors.roxobom }}>
+                     {rangeDiasTexto}
+                  </Typography>
+               </Box>
+
+               {/** Botão Proximo */}
+               <Button onClick={handleProximo}
+                  sx={{
+                     backgroundColor: Colors.azulelegante,
+                     color: Colors.brancocinza,
+                     padding: '7px 12px',
+                     fontSize: '1.1rem',
+                     borderRadius: '6px',
+                     textTransform: 'none',
+                     display: 'flex', alignItems: 'center',
+                     gap: 1,
+                     '&:hover': { backgroundColor: Colors.azulmarin },
+                  }}>
+                  Próximo <ArrowForwardIosIcon fontSize="small" />
+               </Button>
+            </Box>
+
+            {/**Box principal do calendário */}
+            <Box sx={{ overflowX: 'auto', borderRadius: '10px' }}>
+
+               {/*Box secundário principal do calendário*/}
+               <Box sx={{ minWidth: 1000, border: '3px solid black' }}>
+
+                  {/* Cabeçalho da grade */}
+                  <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)' }}>
+
+                     {/**Box apenas com o texto hora */}
+                     <Box
+                        sx={{
+                           backgroundColor: Colors.cinzaescuro,
+                           color: 'white', p: 1,
+                           fontWeight: 'bold',
+                           textAlign: 'center',
+                           borderLeft: '2px solid #96963e',
+                           borderTop: '2px solid #96963e',
+                           borderRight: '2px solid #96963e',
+                           display: 'flex',
+                           justifyContent: 'center',
+                           alignItems: 'center',
+                           gap: 1
+                        }}>
+                        <AccessTimeIcon fontSize="small" />
+                        Hora
+                     </Box>
+
+                     {/**Filtragem de dias */}
+                     {diasMostrados.map((dia, index) => (
+
+                        //Box de dias 
+                        <Box
+                           key={index}
+                           sx={{
+                              background: Colors.cinzaescuro,
+                              color: isToday(dia) ? 'Window' : 'white',
+                              p: 1,
+                              fontWeight: 'bold',
+                              textAlign: 'center',
+                              border: isToday(dia) ? '5px solid purple' : '2px solid #96963e',
+                           }}>
+                           {isToday(dia)
+                              ? `Hoje, ${format(dia, 'EEE - dd/MM/yyyy', { locale: ptBR })}`
+                              : format(dia, 'EEE - dd/MM/yyyy', { locale: ptBR })}
+                        </Box>
+                     ))}
+                  </Box>
+
+                  {/* Linhas de horário */}
+                  {horarios.map((hora, rowIndex) => (
+                     //Boxes dos horarios
+                     <Box
+                        key={rowIndex}
+                        sx={{
+                           display: 'grid',
+                           gridTemplateColumns: 'repeat(8, 1fr)',
+                           backgroundImage: `url(${imagii})`
+                        }}>
+                        <Box
+                           sx={{
+                              p: 1,
+                              textAlign: 'center',
+                              display: 'flex',
+                              border: '2px solid #96963e',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              gap: 1,
+                              color: 'snow',
+                              backgroundColor: Colors.cinzaescuro
+                           }}>
+                           <AccessTimeIcon fontSize="small" />
+                           {hora}
+                        </Box>
+
+                        {/**Grids dos dias que mostram sessões */}
+                        {diasMostrados.map((dia, colIndex) => {
+                           const chave = `${hora}-${dia.toDateString()}`;
+                           const sessoesNaCelula = mapaSessoes[chave] || [];
+                           const isSelected = celulaSelecionada === chave;
+                           return (
+                              //Grids dos dias que mostram sessoes
+                              <Box
+                                 key={colIndex}
+                                 onClick={() => setCelulaSelecionada(chave)}
+                                 sx={{
+                                    height: 75,
+                                    border: '2px solid #96963e',
+                                    borderRight: '0.4px solid #96963e',
+                                    cursor: 'pointer',
+                                    backgroundColor: isSelected ? '#d0d0ff' : 'transparent'
+                                 }}
+                              >
+                                 {/**Cards de sessoes */}
+                                 {sessoesNaCelula.map(sessao => (
+                                    <Paper key={sessao.id} sx={{ backgroundColor: Colors.verdeforte, color: Colors.brancoespacial, p: 0.5, m: 0.7 }}>
+                                       <Typography sx={{ fontSize: 17, fontWeight: 'bold', color: 'snow' }}>{sessao.paciente_nome}</Typography>
+                                       <Typography sx={{ fontSize: 17, fontStyle: 'italic', color: 'snow' }}>{sessao.status}</Typography>
+                                    </Paper>
+                                 ))}
+                              </Box>
+                           );
+                        })}
+                     </Box>
+                  ))}
+               </Box>
+            </Box>
+         </Box>
+      </div>
+   );
+}

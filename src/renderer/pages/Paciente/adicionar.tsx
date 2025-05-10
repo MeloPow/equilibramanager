@@ -4,13 +4,11 @@ import {
     Button,
     MenuItem,
     TextField,
-    Typography,
     Select,
     InputLabel,
     FormControl,
     Snackbar,
     Alert,
-    Box,
 } from '@mui/material';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { salvarPaciente } from '../../services/pacienteService';
@@ -166,15 +164,15 @@ export default function AdicionarPaciente() {
                     onClick={handleSalvar}
                     fullWidth
                     sx={{
-                        backgroundColor: '#38c6e5',
-                        color: 'white',
+                        backgroundColor: Colors.azulelegante,
+                        color: Colors.brancocinza,
                         padding: '14px',
                         fontSize: '1.1rem',
                         borderRadius: '6px',
                         textTransform: 'none',
                         fontWeight: 'bold',
                         '&:hover': {
-                            backgroundColor: '#2bb2d0',
+                            backgroundColor: Colors.azulmarin,
                         },
                     }}
                 >

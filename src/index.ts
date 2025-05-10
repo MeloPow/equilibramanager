@@ -9,6 +9,13 @@ import {
   atualizarPaciente,
   deletarPaciente,
 } from './db/paciente';
+import {
+  criarSessao,
+  listarSessoesPorPaciente,
+  listarTodasSessoes,
+  atualizarSessao,
+  deletarSessao,
+} from './db/sessao';
 
 // Declarações do Webpack
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -30,9 +37,6 @@ const createWindow = (): void => {
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   mainWindow.once('ready-to-show', () => mainWindow.show());
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
-  });
 
   if (!app.isPackaged) {
     mainWindow.webContents.openDevTools();
@@ -53,15 +57,11 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
-// Handlers do banco de dados
-ipcMain.handle('criarPaciente', async (_event, paciente) => {
-  return criarPaciente(paciente);
-});
-
-ipcMain.handle('listarPacientes', async () => {
-  return listarPacientes();
-});
-
+// Handlers do banco de dados - Pacientes
+ipcMain.handle('criarPaciente', async (_event, paciente) =>
+  criarPaciente(paciente)
+);
+ipcMain.handle('listarPacientes', async () => listarPacientes());
 ipcMain.handle('buscarPacientePorId', async (_event, id) =>
   buscarPacientePorId(id)
 );
@@ -69,3 +69,16 @@ ipcMain.handle('atualizarPaciente', async (_event, paciente) =>
   atualizarPaciente(paciente)
 );
 ipcMain.handle('deletarPaciente', async (_event, id) => deletarPaciente(id));
+
+// Handlers do banco de dados - Sessões
+ipcMain.handle('criarSessao', async (_event, sessao) => criarSessao(sessao));
+ipcMain.handle('listarSessoesPorPaciente', async (_event, pacienteId) =>
+  listarSessoesPorPaciente(pacienteId)
+);
+ipcMain.handle('listarTodasSessoes', () => {
+  return listarTodasSessoes();
+});
+ipcMain.handle('atualizarSessao', async (_event, sessao) =>
+  atualizarSessao(sessao)
+);
+ipcMain.handle('deletarSessao', async (_event, id) => deletarSessao(id));

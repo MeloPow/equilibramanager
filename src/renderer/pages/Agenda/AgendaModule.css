@@ -1,36 +1,49 @@
 /* src/pages/Agenda.css */
 .agenda-background {
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .agenda-container {
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    border-top: 12px;
-  }
-  
-  .agenda-button {
-    display: block;
-    background-color: #481d74;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-size: 24px;
-    margin: 10px auto;
-    cursor: pointer;
-    width: 600px;
-    height: 100px;
-    transition: background 0.3s ease;
-  }
-  
-  .agenda-button:hover {
-    background-color: #8a4bd1;
-  }
-  
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.agenda-container {
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  border-top: 12px;
+}
+
+.agenda-button {
+  display: block;
+  background-color: #481d74;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 24px;
+  margin: 10px auto;
+  cursor: pointer;
+  width: 600px;
+  height: 100px;
+  transition: background 0.3s ease;
+}
+
+.agenda-button:hover {
+  background-color: #8a4bd1;
+}
+
+.buttonAntProx {
+  background-color: #38c6e5;
+  color: beige;
+  padding: 14px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  text-transform: none;
+  font-weight: bold;
+}
+
+.buttonAntProx:hover {
+  background-color: '#2bb2d0';
+}
