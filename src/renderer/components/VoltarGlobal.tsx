@@ -8,7 +8,8 @@ interface VoltarGlobalProps {
    drawerOpen?: boolean; // 👈 nova prop
 }
 
-export default function VoltarGlobal({ destino = '/agenda', texto = 'Voltar para agenda', drawerOpen = false, }: VoltarGlobalProps) {
+export default function VoltarGlobal({ destino, texto, drawerOpen = false }: VoltarGlobalProps) {
+
    const navigate = useNavigate();
 
    return (
@@ -21,12 +22,11 @@ export default function VoltarGlobal({ destino = '/agenda', texto = 'Voltar para
          }}
       >
          <Button
-            onClick={() => navigate(destino)}
-            startIcon={<ArrowBackIcon />}
+            onClick={() => destino ? navigate(destino) : navigate(-1)}
+            startIcon={<ArrowBackIcon sx={{ width: 40, height: 40 }} />}
             sx={{
                color: '#481d74',
                fontWeight: 'bold',
-               fontSize: '1rem',
                textTransform: 'none',
                backgroundColor: 'transparent',
                '&:hover': {

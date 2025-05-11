@@ -1,5 +1,5 @@
 import { Paciente } from './Paciente';
-import { Sessao } from './Sessao';
+import { Consulta } from './Consulta';
 
 interface API {
   // Paciente
@@ -10,11 +10,11 @@ interface API {
   deletarPaciente(id: number): Promise<void>;
 
   // Sessão
-  criarSessao(sessao: Sessao): Promise<Sessao>;
-  listarSessoesPorPaciente(id: number): Promise<Sessao[]>;
-  listarTodasSessoes(): Promise<Sessao[]>;
-  atualizarSessao(sessao: Sessao): Promise<void>;
-  deletarSessao(id: number): Promise<void>;
+  criarConsulta(consulta: Consulta): Promise<Consulta>;
+  listarConsultasPorPaciente(id: number): Promise<Consulta[]>;
+  listarTodasConsultas(): Promise<Consulta[]>;
+  atualizarConsulta(consulta: Consulta): Promise<void>;
+  deletarConsulta(id: number): Promise<void>;
 }
 
 declare global {

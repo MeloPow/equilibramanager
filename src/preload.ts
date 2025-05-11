@@ -1,7 +1,7 @@
 // === preload.ts ===
 import { contextBridge, ipcRenderer } from 'electron';
 import { Paciente } from './types/Paciente';
-import { Sessao } from './types/Sessao';
+import { Consulta } from './types/Consulta';
 
 contextBridge.exposeInMainWorld('api', {
   //Paciente
@@ -16,11 +16,12 @@ contextBridge.exposeInMainWorld('api', {
   deletarPaciente: (id: number) => ipcRenderer.invoke('deletarPaciente', id),
 
   // Sessão
-  criarSessao: (sessao: Sessao) => ipcRenderer.invoke('criarSessao', sessao),
-  listarSessoesPorPaciente: (id: number) =>
-    ipcRenderer.invoke('listarSessoesPorPaciente', id),
-  listarTodasSessoes: () => ipcRenderer.invoke('listarTodasSessoes'),
-  atualizarSessao: (sessao: Sessao) =>
-    ipcRenderer.invoke('atualizarSessao', sessao),
-  deletarSessao: (id: number) => ipcRenderer.invoke('deletarSessao', id),
+  criarConsulta: (consulta: Consulta) =>
+    ipcRenderer.invoke('criarConsulta', consulta),
+  listarConsultasPorPaciente: (id: number) =>
+    ipcRenderer.invoke('listarConsultasPorPaciente', id),
+  listarTodasConsultas: () => ipcRenderer.invoke('listarTodasConsultas'),
+  atualizarConsulta: (consulta: Consulta) =>
+    ipcRenderer.invoke('atualizarConsulta', consulta),
+  deletarConsulta: (id: number) => ipcRenderer.invoke('deletarConsulta', id),
 });

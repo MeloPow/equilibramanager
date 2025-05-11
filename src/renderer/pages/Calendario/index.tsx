@@ -1,6 +1,6 @@
 // src/pages/Agenda/calendario.tsx
 import React, { useState, useMemo, useEffect } from 'react';
-import { Box, Typography, Button, Paper } from '@mui/material';
+import { Box, Typography, Button, Paper, Tooltip } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -12,9 +12,8 @@ import { ptBR } from 'date-fns/locale';
 import { Colors } from '../../styles/Colors';
 import background from '../../../assets/images/background3.png';
 import imagii from '../../../assets/images/background2.png';
-import BotaoVoltar from '../../components/VoltarGlobal';
-import { Sessao } from '../../../types/Sessao';
-import { listarSessoesPorPaciente, listarTodasSessoes } from '../../services/sessaoService';
+import { Consulta } from '../../../types/Consulta';
+import { listarConsultasPorPaciente, listarTodasConsultas } from '../../services/consultaService';
 
 const horarios = Array.from({ length: 14 }, (_, i) => `${i + 6}:00`);
 
@@ -22,30 +21,27 @@ export default function Calendario() {
    const navigate = useNavigate();
    const [startDate, setStartDate] = useState<Date>(startOfDay(new Date()));
    const [celulaSelecionada, setCelulaSelecionada] = useState<string | null>(null);
-   const [sessoes, setSessoes] = useState<Sessao[]>([]);
-
-   type ContextType = { drawerOpen: boolean };
-   const { drawerOpen } = useOutletContext<ContextType>();
+   const [consultas, setConsultas] = useState<Consulta[]>([]);
 
    const diasMostrados = useMemo(
       () => Array.from({ length: 7 }, (_, i) => addDays(startDate, i)),
       [startDate]
    );
 
-   const mapaSessoes = useMemo(() => {
-      console.log('[MAP] recalculando mapaSessoes');
-      const mapa: { [key: string]: Sessao[] } = {};
-      sessoes.forEach(sessao => {
-         const data = new Date(sessao.data_hora);
+   const mapaConsultas = useMemo(() => {
+      console.log('[MAP] recalculando mapaConsultas');
+      const mapa: { [key: string]: Consulta[] } = {};
+      consultas.forEach(consulta => {
+         const data = new Date(consulta.data_hora);
          const dia = format(data, 'yyyy-MM-dd');
          const hora = `${String(data.getHours()).padStart(2, '0')}:00`;
          const chave = `${hora}-${dia}`;
-         console.log('[MAP]', chave, sessao.paciente_nome); // novo log
+         console.log('[MAP]', chave, consulta.paciente_nome); // novo log
          if (!mapa[chave]) mapa[chave] = [];
-         mapa[chave].push(sessao);
+         mapa[chave].push(consulta);
       });
       return mapa;
-   }, [sessoes]);
+   }, [consultas]);
 
    const handleAnterior = () => {
       const novaData = subDays(startDate, 1);
@@ -63,23 +59,22 @@ export default function Calendario() {
       diasMostrados[6], 'dd/MM'
    )}`;
 
-   const redirecionarParaNovaSessao = (data: Date) => {
+   const redirecionarParaNovaConsulta = (data: Date) => {
       const iso = data.toISOString().slice(0, 16);
-      navigate(`/sessao/nova?dataHora=${encodeURIComponent(iso)}`);
+      navigate(`/consulta/nova?dataHora=${encodeURIComponent(iso)}`);
    };
 
    useEffect(() => {
-      listarTodasSessoes()
-         .then(sessoes => {
-            console.log('[LOAD ALL] sessoes recebidas:', sessoes);
-            setSessoes(sessoes);
+      listarTodasConsultas()
+         .then(consultas => {
+            console.log('[LOAD ALL] consultas recebidas:', consultas);
+            setConsultas(consultas);
          })
          .catch(console.error);
    }, []);
 
    return (
       <div className="paciente-background" style={{ backgroundImage: `url(${background})` }}>
-         <BotaoVoltar drawerOpen={drawerOpen} />
          <Box sx={{ p: 6 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 5 }}>
                <Button onClick={handleAnterior} sx={{ backgroundColor: Colors.azulelegante, color: Colors.brancocinza, top: 35 }}>
@@ -130,75 +125,79 @@ export default function Calendario() {
                               const horaFormatada = `${String(Number(hora.split(':')[0])).padStart(2, '0')}:00`;
                               const dataFormatada = format(dia, 'yyyy-MM-dd');
                               const chave = `${horaFormatada}-${dataFormatada}`;
-                              const sessoesNaCelula = mapaSessoes[chave] || [];
-                              const estaVazio = sessoesNaCelula.length === 0;
+                              const consultasNaCelula = mapaConsultas[chave] || [];
+                              const estaVazio = consultasNaCelula.length === 0;
                               const dataCompleta = new Date(`${dataFormatada}T${horaFormatada}`);
 
-                              console.log('[RENDER] chave:', chave, '→ sessoesNaCelula.length:', sessoesNaCelula.length);
+                              console.log('[RENDER] chave:', chave, '→ consultasNaCelula.length:', consultasNaCelula.length);
 
                               return (
                                  <Box
                                     key={colIndex}
                                     onClick={() => setCelulaSelecionada(chave)}
                                     sx={{
-                                       height: 75,
+                                       width: '100%',
+                                       height: 80,
                                        border: '2px solid #96963e',
                                        backgroundImage: `url(${imagii})`,
                                        backgroundColor: celulaSelecionada === chave ? '#d0d0ff' : 'transparent',
                                        display: 'flex',
-                                       flexDirection: 'column',
                                        justifyContent: 'center',
                                        alignItems: 'center',
-                                       p: 0.5,
+                                       overflow: 'hidden',
+                                       padding: 0,
                                        position: 'relative'
                                     }}
                                  >
-                                    {sessoesNaCelula.map(sessao => (
+                                    {consultasNaCelula.map(consulta => (
                                        <Paper
-                                          key={sessao.id}
+                                          key={consulta.id}
                                           sx={{
                                              width: '90%',
+                                             height: '90%',
+                                             padding: '4px',
                                              textAlign: 'center',
-                                             p: 0.5,
-                                             m: 'auto',
-                                             maxHeight: 50,
-                                             overflow: 'hidden',
                                              display: 'flex',
                                              flexDirection: 'column',
                                              justifyContent: 'center',
                                              alignItems: 'center',
                                              borderRadius: 1,
                                              boxShadow: 3,
+                                             overflow: 'hidden',
+                                             whiteSpace: 'nowrap',
+                                             textOverflow: 'ellipsis',
                                              backgroundColor:
-                                                sessao.status === 'realizada'
-                                                   ? '#4CAF50' // verde
-                                                   : sessao.status === 'cancelada'
-                                                      ? '#F44336' // vermelho
-                                                      : '#FFC107', // amarelo
+                                                consulta.status === 'realizada'
+                                                   ? '#4CAF50'
+                                                   : consulta.status === 'cancelada'
+                                                      ? '#F44336'
+                                                      : '#FFC107',
                                           }}
                                        >
-                                          <Typography
-                                             sx={{
-                                                fontSize: 13,
-                                                fontWeight: 'bold',
-                                                color: 'black',
-                                                whiteSpace: 'nowrap',
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis',
+                                          <Tooltip title={consulta.paciente_nome}>
+                                             <Typography
+                                                sx={{
+                                                   fontSize: 18,
+                                                   fontWeight: 'bold',
+                                                   color: 'black',
+                                                   whiteSpace: 'nowrap',
+                                                   overflow: 'hidden',
+                                                   textOverflow: 'ellipsis',
 
-                                             }}
-                                          >
-                                             {sessao.paciente_nome}
-                                          </Typography>
+                                                }}
+                                             >
+                                                {consulta.paciente_nome}
+                                             </Typography>
+                                          </Tooltip>
                                           <Typography
                                              sx={{
-                                                fontSize: 11,
+                                                fontSize: 15,
                                                 color: 'black',
                                                 fontStyle: 'italic',
                                                 textTransform: 'capitalize',
                                              }}
                                           >
-                                             {sessao.status}
+                                             {consulta.status}
                                           </Typography>
                                        </Paper>
                                     ))}
@@ -207,7 +206,7 @@ export default function Calendario() {
                                           sx={{ fontSize: 28, color: Colors.verdeforte, opacity: 0.6, cursor: 'pointer' }}
                                           onClick={(e) => {
                                              e.stopPropagation();
-                                             redirecionarParaNovaSessao(dataCompleta);
+                                             redirecionarParaNovaConsulta(dataCompleta);
                                           }}
                                        />
                                     )}

@@ -1,28 +1,30 @@
-// src/renderer/pages/Sessao/novaSessao.tsx
+// src/renderer/pages/Consulta/novaConsulta.tsx
 import React, { useState, useEffect, ContextType } from 'react';
-import { Box, Button, MenuItem, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, MenuItem, Typography } from '@mui/material';
 import { useNavigate, useOutletContext, useSearchParams } from 'react-router-dom';
-import { Sessao } from '../../../types/Sessao';
-import { criarSessao } from '../../services/sessaoService';
+import { Consulta } from '../../../types/Consulta';
+import { criarConsulta } from '../../services/consultaService';
 import { listarPacientes } from '../../services/pacienteService';
 import { Paciente } from '../../../types/Paciente';
 import dayjs from 'dayjs';
-import BotaoVoltar from '../../components/VoltarGlobal'
-import background from '../../../assets/images/background3.png'
-export default function NovaSessao() {
+import BotaoVoltar from '../../components/VoltarGlobal';
+import background from '../../../assets/images/background3.png';
+import FormularioAdd from '../../components/FormularioCard';
+import { Colors } from '../../styles/Colors';
+import PacienteAutocomplete from '../../components/PacienteAutocomplete';
+
+export default function NovaConsulta() {
    const navigate = useNavigate();
    const [searchParams] = useSearchParams();
 
    const [pacienteId, setPacienteId] = useState<number | null>(null);
    const [pacienteNome, setPacienteNome] = useState<string>('');
    const [pacientes, setPacientes] = useState<Paciente[]>([]);
-   const [buscaNome, setBuscaNome] = useState<string>('');
    const [dataHora, setDataHora] = useState<string>('');
    const [status, setStatus] = useState<string>('agendada');
    const [observacoes, setObservacoes] = useState<string>('');
    const [carregando, setCarregando] = useState<boolean>(false);
 
-   //botão voltar
    type ContextType = { drawerOpen: boolean };
    const { drawerOpen } = useOutletContext<ContextType>();
 
@@ -45,12 +47,16 @@ export default function NovaSessao() {
       }
    }, [searchParams]);
 
+   useEffect(() => {
+      listarPacientes().then(setPacientes);
+   }, []);
+
    const handleSalvar = async () => {
       if (!dataHora || !pacienteId) return alert('Informe a data e o paciente.');
       setCarregando(true);
       const pacienteSelecionado = pacientes.find(p => p.id === pacienteId);
 
-      const nova: Sessao = {
+      const nova: Consulta = {
          paciente: pacienteId,
          data_hora: dataHora,
          status,
@@ -58,20 +64,16 @@ export default function NovaSessao() {
          paciente_nome: pacienteNome || pacienteSelecionado?.nome_completo || '',
       };
       try {
-         await criarSessao(nova);
-         alert('Sessão criada com sucesso!');
+         await criarConsulta(nova);
+         alert('Consulta criada com sucesso!');
          navigate(-1);
       } catch (error) {
          console.error(error);
-         alert('Erro ao criar sessão.');
+         alert('Erro ao criar consulta.');
       } finally {
          setCarregando(false);
       }
    };
-
-   const pacientesFiltrados = pacientes.filter(p =>
-      p.nome_completo.toLowerCase().includes(buscaNome.toLowerCase())
-   );
 
    return (
       <div
@@ -79,30 +81,18 @@ export default function NovaSessao() {
          style={{ backgroundImage: `url(${background})`, padding: '40px' }}
       >
          <BotaoVoltar drawerOpen={drawerOpen} />
-         <Box sx={{ p: 3, maxWidth: 500, mx: 'auto', display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Typography variant="h5" fontWeight="bold">Nova Sessão</Typography>
+         <FormularioAdd>
+            <Typography variant="h5" fontWeight="bold">Nova Consulta</Typography>
 
-            {!pacienteId && (
-               <>
-                  <TextField
-                     label="Buscar por nome"
-                     value={buscaNome}
-                     onChange={(e) => setBuscaNome(e.target.value)}
-                     fullWidth
-                  />
-                  <TextField
-                     label="Paciente"
-                     select
-                     value={pacienteId || ''}
-                     onChange={(e) => setPacienteId(Number(e.target.value))}
-                     fullWidth
-                  >
-                     {pacientesFiltrados.map(p => (
-                        <MenuItem key={p.id} value={p.id}>{p.nome_completo}</MenuItem>
-                     ))}
-                  </TextField>
-               </>
-            )}
+            <Box sx={{ mb: 2 }}>
+               <PacienteAutocomplete
+                  pacienteSelecionadoId={pacienteId}
+                  onSelecionar={(paciente) => {
+                     setPacienteId(paciente.id || null);
+                     setPacienteNome(paciente.nome_completo);
+                  }}
+               />
+            </Box>
 
             <TextField
                label="Data e Hora"
@@ -111,6 +101,7 @@ export default function NovaSessao() {
                onChange={(e) => setDataHora(e.target.value)}
                InputLabelProps={{ shrink: true }}
                fullWidth
+               sx={{ mb: '8px' }}
             />
 
             <TextField
@@ -119,6 +110,7 @@ export default function NovaSessao() {
                value={status}
                onChange={(e) => setStatus(e.target.value)}
                fullWidth
+               sx={{ mb: '8px' }}
             >
                <MenuItem value="agendada">Agendada</MenuItem>
                <MenuItem value="realizada">Realizada</MenuItem>
@@ -132,17 +124,28 @@ export default function NovaSessao() {
                value={observacoes}
                onChange={(e) => setObservacoes(e.target.value)}
                fullWidth
+               sx={{ mb: '8px' }}
             />
 
             <Button
-               variant="contained"
-               color="primary"
                onClick={handleSalvar}
-               disabled={carregando}
+               fullWidth
+               sx={{
+                  backgroundColor: Colors.azulelegante,
+                  color: Colors.brancocinza,
+                  padding: '14px',
+                  fontSize: '1.1rem',
+                  borderRadius: '6px',
+                  textTransform: 'none',
+                  fontWeight: 'bold',
+                  '&:hover': {
+                     backgroundColor: Colors.azulmarin,
+                  },
+               }}
             >
-               Salvar Sessão
+               Criar consulta
             </Button>
-         </Box>
+         </FormularioAdd>
       </div>
    );
 }

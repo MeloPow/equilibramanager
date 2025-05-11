@@ -22,6 +22,9 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupIcon from '@mui/icons-material/Group';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuIcon from '@mui/icons-material/Menu';
+import ChairIcon from '@mui/icons-material/Chair';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import { Colors } from '../styles/Colors';
 import logo3Image from '../../assets/images/logo3.png'
 import logoImage from '../../assets/images/logo.png'
@@ -150,11 +153,35 @@ export default function MainLayout() {
                     </CustomListItem>
 
                     <CustomListItem
-                        onClick={() => handleNavigate('/agenda')}
-                        selected={location.pathname === '/agenda'}
+                        onClick={() => handleNavigate('/calendario')}
+                        selected={location.pathname === '/calendario'}
                     >
                         <CustomListItemIcon><CalendarMonthIcon /></CustomListItemIcon>
-                        <ListItemText primary="Agenda" />
+                        <ListItemText primary="Calendario" />
+                    </CustomListItem>
+
+                    <CustomListItem
+                        onClick={() => handleNavigate('/consulta')}
+                        selected={location.pathname === '/consulta'}
+                    >
+                        <CustomListItemIcon><ChairIcon /></CustomListItemIcon>
+                        <ListItemText primary="Consultas" />
+                    </CustomListItem>
+
+                    <CustomListItem
+                        onClick={() => handleNavigate('/financeiro')}
+                        selected={location.pathname === '/financeiro'}
+                    >
+                        <CustomListItemIcon><AttachMoneyIcon /></CustomListItemIcon>
+                        <ListItemText primary="Financeiro" />
+                    </CustomListItem>
+
+                    <CustomListItem
+                        onClick={() => handleNavigate('/relatorio')}
+                        selected={location.pathname === '/relatorio'}
+                    >
+                        <CustomListItemIcon><LibraryBooksIcon /></CustomListItemIcon>
+                        <ListItemText primary="Relatórios" />
                     </CustomListItem>
                 </List>
             </CustomDrawer>

@@ -5,13 +5,15 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Splash from './renderer/pages/Splash';
 import Painel from './renderer/pages/Painel';
 import Paciente from './renderer/pages/Paciente';
-import Agenda from './renderer/pages/Agenda';
 import MainLayout from './renderer/layouts/MainLayout';
 import AdicionarPaciente from './renderer/pages/Paciente/adicionar';
 import ListarPacientes from './renderer/pages/Paciente/listar';
 import EditarPaciente from './renderer/pages/Paciente/editar';
-import Calendario from './renderer/pages/Agenda/calendario';
-import NovaSessao from './renderer/pages/Sessao/novaSessao';
+import Calendario from './renderer/pages/Calendario';
+import Consulta from './renderer/pages/Consulta';
+import NovaConsulta from './renderer/pages/Consulta/novaConsulta';
+import ListarConsultas from './renderer/pages/Consulta/listarConsultas';
+
 
 export default function App() {
     return (
@@ -24,12 +26,14 @@ export default function App() {
                 <Route element={<MainLayout />}>
                     <Route path="/painel" element={<Painel />} />
                     <Route path="/paciente" element={<Paciente />} />
-                    <Route path="/agenda" element={<Agenda />} />
                     <Route path="/paciente/adicionar" element={<AdicionarPaciente />} />
                     <Route path="/paciente/listar" element={<ListarPacientes />} />
                     <Route path="/paciente/editar" element={<EditarPaciente />} />
-                    <Route path="/agenda/calendario" element={<Calendario />} />
-                    <Route path="/sessao/nova" element={<NovaSessao />} />
+                    <Route path="/calendario" element={<Calendario />} />
+                    <Route path="/consulta" element={<Consulta />} />
+                    <Route path="/consulta/nova" element={<NovaConsulta />} />
+                    <Route path="/consulta/listaconsultas" element={<ListarConsultas />} />
+
                 </Route>
             </Routes>
         </Router>

@@ -1,4 +1,4 @@
-export interface Sessao {
+export interface Consulta {
   id?: number;
   paciente: number; // paciente_id
   data_hora: string;

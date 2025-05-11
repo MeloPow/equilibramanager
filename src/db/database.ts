@@ -35,7 +35,7 @@ export function initializeDatabase(dbPath: string) {
 
   db.prepare(
     `
-    CREATE TABLE IF NOT EXISTS sessoes (
+    CREATE TABLE IF NOT EXISTS consultas (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       paciente_id INTEGER NOT NULL,
       data_hora TEXT NOT NULL,

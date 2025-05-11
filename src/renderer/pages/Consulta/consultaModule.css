@@ -1,5 +1,5 @@
 /* src/pages/Agenda.css */
-.agenda-background {
+.consulta-background {
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -8,14 +8,14 @@
   align-items: center;
 }
 
-.agenda-container {
+.consulta-container {
   padding: 40px;
   border-radius: 20px;
   text-align: center;
   border-top: 12px;
 }
 
-.agenda-button {
+.consulta-button {
   display: block;
   background-color: #481d74;
   color: white;
@@ -30,7 +30,7 @@
   transition: background 0.3s ease;
 }
 
-.agenda-button:hover {
+.consulta-button:hover {
   background-color: #8a4bd1;
 }
 

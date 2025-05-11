@@ -10,12 +10,12 @@ import {
   deletarPaciente,
 } from './db/paciente';
 import {
-  criarSessao,
-  listarSessoesPorPaciente,
-  listarTodasSessoes,
-  atualizarSessao,
-  deletarSessao,
-} from './db/sessao';
+  criarConsulta,
+  listarConsultasPorPaciente,
+  listarTodasConsultas,
+  atualizarConsulta,
+  deletarConsulta,
+} from './db/consulta';
 
 // Declarações do Webpack
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -71,14 +71,16 @@ ipcMain.handle('atualizarPaciente', async (_event, paciente) =>
 ipcMain.handle('deletarPaciente', async (_event, id) => deletarPaciente(id));
 
 // Handlers do banco de dados - Sessões
-ipcMain.handle('criarSessao', async (_event, sessao) => criarSessao(sessao));
-ipcMain.handle('listarSessoesPorPaciente', async (_event, pacienteId) =>
-  listarSessoesPorPaciente(pacienteId)
+ipcMain.handle('criarConsulta', async (_event, consulta) =>
+  criarConsulta(consulta)
 );
-ipcMain.handle('listarTodasSessoes', () => {
-  return listarTodasSessoes();
+ipcMain.handle('listarConsultasPorPaciente', async (_event, pacienteId) =>
+  listarConsultasPorPaciente(pacienteId)
+);
+ipcMain.handle('listarTodasConsultas', () => {
+  return listarTodasConsultas();
 });
-ipcMain.handle('atualizarSessao', async (_event, sessao) =>
-  atualizarSessao(sessao)
+ipcMain.handle('atualizarConsulta', async (_event, consulta) =>
+  atualizarConsulta(consulta)
 );
-ipcMain.handle('deletarSessao', async (_event, id) => deletarSessao(id));
+ipcMain.handle('deletarConsulta', async (_event, id) => deletarConsulta(id));
