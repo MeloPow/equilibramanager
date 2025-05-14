@@ -13,7 +13,9 @@ import Calendario from './renderer/pages/Calendario';
 import Consulta from './renderer/pages/Consulta';
 import NovaConsulta from './renderer/pages/Consulta/novaConsulta';
 import ListarConsultas from './renderer/pages/Consulta/listarConsultas';
-
+import Relatorio from './renderer/pages/RelatorioEvolucao'
+import NovaEvolucao from './renderer/pages/RelatorioEvolucao/novaEvolucao';
+import EditarConsulta from './renderer/pages/Consulta/editarConsulta';
 
 export default function App() {
     return (
@@ -33,6 +35,9 @@ export default function App() {
                     <Route path="/consulta" element={<Consulta />} />
                     <Route path="/consulta/nova" element={<NovaConsulta />} />
                     <Route path="/consulta/listaconsultas" element={<ListarConsultas />} />
+                    <Route path="/consulta/editarconsultas/:id" element={<EditarConsulta />} />
+                    <Route path="/relatorio" element={<Relatorio />} />
+                    <Route path="/relatorio/evolucao" element={<NovaEvolucao />} />
 
                 </Route>
             </Routes>

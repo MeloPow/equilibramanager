@@ -1,0 +1,120 @@
+Os relatórios feitos por psicólogos têm finalidades diversas e não são obrigatoriamente elaborados após cada sessão, a não ser que o profissional adote esse método para fins de organização clínica interna ou se for exigido por alguma instituição (escola, justiça, plano de saúde etc.). Abaixo explico como eles funcionam, quando são exigidos e os principais padrões utilizados por profissionais experientes:
+
+✅ 1. Finalidades dos Relatórios Psicológicos
+Relatórios psicológicos podem servir para:
+
+Registro clínico (uso interno)
+
+Encaminhamentos (para psiquiatra, escola, outro profissional da saúde)
+
+Demandas judiciais (guarda de filhos, interdição, etc.)
+
+Avaliação psicológica ou psicodiagnóstico
+
+Planos de tratamento
+
+Prestação de contas a convênios (exige sumário, não relatório detalhado)
+
+📌 2. Relatórios por Sessão são Obrigatórios?
+Não. A obrigatoriedade depende:
+
+Da prática clínica do profissional: alguns fazem anotações resumidas ou um relatório contínuo.
+
+De exigências externas: como laudos ou relatórios periódicos para plano de saúde ou escola.
+
+Da abordagem adotada: psicodinâmica, TCC, psicanálise etc., influenciam o tipo de registro.
+
+Mas é altamente recomendável que o psicólogo mantenha registros organizados, mesmo que breves, por motivos éticos e legais (Resolução CFP 001/2009).
+
+📁 3. Tipos de Registros Utilizados
+📋 a) Prontuário Clínico (uso interno)
+Resumo breve de cada sessão (motivo da consulta, tópicos discutidos, intervenções).
+
+Pode ser digital ou manuscrito.
+
+Geralmente estruturado assim:
+
+Data
+
+Sessão nº
+
+Resumo da sessão
+
+Evolução e observações
+
+Plano para próxima sessão
+
+Observação: Esses registros não devem conter julgamentos ou rótulos, e sim informações técnicas, objetivas e úteis à continuidade do atendimento.
+
+📄 b) Relatório Psicológico Formal
+É um documento mais completo, com linguagem técnica acessível, entregue a terceiros (médicos, advogados, escolas, etc.).
+
+Estrutura padrão:
+Identificação
+
+Nome do paciente, idade, escolaridade, etc.
+
+Dados do psicólogo (CRP, nome, local de atendimento)
+
+Motivo da elaboração
+
+Quem solicitou e por quê.
+
+Procedimentos utilizados
+
+Número de sessões, técnicas, instrumentos aplicados, entrevistas, etc.
+
+Descrição do caso
+
+Histórico relevante, comportamentos observados, evolução.
+
+Análise e interpretação
+
+Entendimento técnico do psicólogo sobre a situação.
+
+Conclusão
+
+Impressões diagnósticas, recomendações, encaminhamentos.
+
+Modelos utilizados:
+Baseados nas normas do CFP (Conselho Federal de Psicologia).
+
+Alguns usam modelo SOAP (Subjetivo, Objetivo, Avaliação, Plano), especialmente em contextos clínicos e hospitalares.
+
+Relatório de acompanhamento terapêutico: pode ser semestral ou quando solicitado, contendo análise da evolução do paciente.
+
+🧠 4. Modelos consolidados utilizados por psicólogos experientes
+Profissionais experientes tendem a usar modelos adaptáveis, como:
+
+Tipo de Documento	Frequência	Finalidade
+Notas de sessão	Após cada consulta (interno)	Registro do processo
+Relatório evolutivo	Mensal ou bimestral	Resumo da evolução do caso
+Relatório de avaliação psicológica	Após bateria de testes	Diagnóstico ou orientação
+Relatório para instituições	Sob demanda	Escolas, Justiça, planos
+Laudo psicológico	Sob demanda específica	Exige metodologia e conclusão formal
+
+📚 5. Fontes confiáveis e manuais de referência
+Resolução CFP 06/2019 – Dispõe sobre documentos produzidos por psicólogos.
+
+Manual de Elaboração de Documentos Psicológicos (CFP)
+
+Prontuário psicológico: diretrizes e boas práticas – Publicações regionais dos CRPs.
+
+🧩 Conclusão
+Relatórios não são obrigatórios por sessão, mas anotações são recomendadas.
+
+O padrão varia conforme a finalidade: clínica, institucional, judicial, etc.
+
+Há modelos prontos fornecidos pelo CFP e por associações de psicólogos.
+
+Se quiser, posso gerar modelos editáveis (.docx ou PDF) de:
+
+Notas de sessão padronizadas
+
+Relatório evolutivo
+
+Relatório para instituições
+
+Laudo psicológico técnico
+
+Basta pedir o tipo e o formato.

@@ -16,6 +16,13 @@ import {
   atualizarConsulta,
   deletarConsulta,
 } from './db/consulta';
+import {
+  criarRelatorioEvolucao,
+  listarRelatoriosPorConsulta,
+  listarRelatoriosPorPaciente,
+  atualizarRelatorioEvolucao,
+  deletarRelatorioEvolucao,
+} from './db/relatorio_evolucao';
 
 // Declarações do Webpack
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -70,7 +77,7 @@ ipcMain.handle('atualizarPaciente', async (_event, paciente) =>
 );
 ipcMain.handle('deletarPaciente', async (_event, id) => deletarPaciente(id));
 
-// Handlers do banco de dados - Sessões
+// Handlers do banco de dados - Consultas
 ipcMain.handle('criarConsulta', async (_event, consulta) =>
   criarConsulta(consulta)
 );
@@ -84,3 +91,20 @@ ipcMain.handle('atualizarConsulta', async (_event, consulta) =>
   atualizarConsulta(consulta)
 );
 ipcMain.handle('deletarConsulta', async (_event, id) => deletarConsulta(id));
+
+// Handlers do banco de dados - Relatórios de Evolução
+ipcMain.handle('criarRelatorioEvolucao', async (_event, relatorio) =>
+  criarRelatorioEvolucao(relatorio)
+);
+ipcMain.handle('listarRelatoriosPorConsulta', async (_event, consultaId) =>
+  listarRelatoriosPorConsulta(consultaId)
+);
+ipcMain.handle('listarRelatoriosPorPaciente', async (_event, pacienteId) =>
+  listarRelatoriosPorPaciente(pacienteId)
+);
+ipcMain.handle('atualizarRelatorioEvolucao', async (_event, relatorio) =>
+  atualizarRelatorioEvolucao(relatorio)
+);
+ipcMain.handle('deletarRelatorioEvolucao', async (_event, id) =>
+  deletarRelatorioEvolucao(id)
+);

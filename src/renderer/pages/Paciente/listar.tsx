@@ -17,6 +17,8 @@ import './PacienteModule.css';
 import { Colors } from '../../styles/Colors';
 import { Paciente } from '../../../types/Paciente';
 import background from '../../../assets/images/background3.png';
+import imagii from '../../../assets/images/background2.png';
+import cinzaqueimado from '../../../assets/images/cinzaqueimado.png';
 import BotaoVoltar from '../../components/VoltarGlobal';
 
 export default function ListarPacientes() {
@@ -62,7 +64,7 @@ export default function ListarPacientes() {
         <div className="paciente-background" style={{ backgroundImage: `url(${background})` }}>
             <BotaoVoltar drawerOpen={drawerOpen} />
             <Container maxWidth="md">
-                <Box className="options-box" sx={{ mt: 4, backgroundColor: '#ebeae470' }}>
+                <Box className="options-box" sx={{ mt: 4, backgroundImage: `url(${imagii})` }}>
                     <Typography variant="h4" gutterBottom sx={{
                         backgroundColor: Colors.roxobom,
                         width: '100%',
@@ -92,7 +94,7 @@ export default function ListarPacientes() {
                     />
 
                     {pacientesFiltrados.map((item) => (
-                        <Paper key={item.id} elevation={3} className="paciente-card">
+                        <Paper key={item.id} elevation={3} className="paciente-card" sx={{ backgroundColor: Colors.roxo2gradient }} >
                             <Box onClick={() => toggleExpandir(item.id)} sx={{ cursor: 'pointer' }}>
                                 <Typography sx={{
                                     color: Colors.roxobom,

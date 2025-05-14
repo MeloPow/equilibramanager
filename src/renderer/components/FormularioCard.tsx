@@ -1,6 +1,7 @@
 // src/renderer/components/FormularioCard.tsx
 import React from 'react';
 import { Box } from '@mui/material';
+import imagii from '../../assets/images/background2.png'
 
 interface FormularioCardProps {
    children: React.ReactNode;
@@ -21,6 +22,7 @@ export const FormularioCard: React.FC<FormularioCardProps> = ({ children, width 
             display: 'flex',
             flexDirection: 'column',
             gap: 3,
+            backgroundImage: `url(${imagii})`,
          }}
       >
          <Box

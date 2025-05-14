@@ -32,8 +32,13 @@ const PacienteAutocomplete: React.FC<PacienteAutocompleteProps> = ({ onSeleciona
          getOptionLabel={(option) => option.nome_completo}
          value={pacienteSelecionado}
          onChange={(event, novoPaciente) => {
-            if (novoPaciente) onSelecionar(novoPaciente);
+            if (novoPaciente) {
+               onSelecionar(novoPaciente);
+            } else {
+               onSelecionar({ id: null, nome_completo: '' } as Paciente); // valor vazio e seguro
+            }
          }}
+
          inputValue={inputValue}
          onInputChange={(event, novoValor) => setInputValue(novoValor)}
          loading={carregando}

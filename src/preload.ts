@@ -2,9 +2,10 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { Paciente } from './types/Paciente';
 import { Consulta } from './types/Consulta';
+import { RelatorioEvolucao } from './types/RelatorioEvolucao';
 
 contextBridge.exposeInMainWorld('api', {
-  //Paciente
+  // Paciente
   criarPaciente: (paciente: Paciente) =>
     ipcRenderer.invoke('criarPaciente', paciente),
   listarPacientes: (): Promise<Paciente[]> =>
@@ -15,7 +16,7 @@ contextBridge.exposeInMainWorld('api', {
     ipcRenderer.invoke('atualizarPaciente', paciente),
   deletarPaciente: (id: number) => ipcRenderer.invoke('deletarPaciente', id),
 
-  // Sessão
+  // Consulta
   criarConsulta: (consulta: Consulta) =>
     ipcRenderer.invoke('criarConsulta', consulta),
   listarConsultasPorPaciente: (id: number) =>
@@ -24,4 +25,16 @@ contextBridge.exposeInMainWorld('api', {
   atualizarConsulta: (consulta: Consulta) =>
     ipcRenderer.invoke('atualizarConsulta', consulta),
   deletarConsulta: (id: number) => ipcRenderer.invoke('deletarConsulta', id),
+
+  // Relatório de Evolução
+  criarRelatorioEvolucao: (relatorio: RelatorioEvolucao) =>
+    ipcRenderer.invoke('criarRelatorioEvolucao', relatorio),
+  listarRelatoriosEvolucaoPorConsulta: (consultaId: number) =>
+    ipcRenderer.invoke('listarRelatoriosPorConsulta', consultaId),
+  listarRelatoriosEvolucaoPorPaciente: (pacienteId: number) =>
+    ipcRenderer.invoke('listarRelatoriosPorPaciente', pacienteId),
+  atualizarRelatorioEvolucao: (relatorio: RelatorioEvolucao) =>
+    ipcRenderer.invoke('atualizarRelatorioEvolucao', relatorio),
+  deletarRelatorioEvolucao: (id: number) =>
+    ipcRenderer.invoke('deletarRelatorioEvolucao', id),
 });

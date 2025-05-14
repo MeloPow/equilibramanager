@@ -47,3 +47,25 @@
 .buttonAntProx:hover {
   background-color: '#2bb2d0';
 }
+
+.option-button {
+  display: block;
+  background-color: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 6px auto;
+  width: 90%;
+  max-width: 500px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.option-button:hover {
+  background-color: #3949ab;
+  transform: scale(1.02);
+}

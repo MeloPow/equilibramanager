@@ -1,19 +1,19 @@
 // src/pages/Agenda/calendario.tsx
 import React, { useState, useMemo, useEffect } from 'react';
-import { Box, Typography, Button, Paper, Tooltip } from '@mui/material';
+import { Box, Typography, Button, Paper, Tooltip, Stack } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { format, addDays, subDays, startOfDay, isToday } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Colors } from '../../styles/Colors';
 import background from '../../../assets/images/background3.png';
 import imagii from '../../../assets/images/background2.png';
 import { Consulta } from '../../../types/Consulta';
-import { listarConsultasPorPaciente, listarTodasConsultas } from '../../services/consultaService';
+import { listarTodasConsultas } from '../../services/consultaService';
 
 const horarios = Array.from({ length: 14 }, (_, i) => `${i + 6}:00`);
 
@@ -60,7 +60,8 @@ export default function Calendario() {
    )}`;
 
    const redirecionarParaNovaConsulta = (data: Date) => {
-      const iso = data.toISOString().slice(0, 16);
+      // Mantém a data local SEM conversão para UTC
+      const iso = format(data, "yyyy-MM-dd'T'HH:mm");
       navigate(`/consulta/nova?dataHora=${encodeURIComponent(iso)}`);
    };
 
@@ -76,8 +77,14 @@ export default function Calendario() {
    return (
       <div className="paciente-background" style={{ backgroundImage: `url(${background})` }}>
          <Box sx={{ p: 6 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 5 }}>
-               <Button onClick={handleAnterior} sx={{ backgroundColor: Colors.azulelegante, color: Colors.brancocinza, top: 35 }}>
+            <Box sx={{
+               display: 'flex',
+               justifyContent: 'space-between',
+               alignItems: 'center',
+               mb: 5,
+            }}
+            >
+               <Button onClick={handleAnterior} sx={{ backgroundColor: Colors.azulelegante, color: Colors.brancocinza, top: 35, left: 1070 }}>
                   <ArrowBackIosNewIcon fontSize="small" />
                   Anterior
                </Button>
@@ -95,19 +102,55 @@ export default function Calendario() {
                      {rangeDiasTexto}
                   </Typography>
                </Box>
-               <Button onClick={handleProximo} sx={{ backgroundColor: Colors.azulelegante, color: Colors.brancocinza, top: 35 }}>
+               <Button onClick={handleProximo} sx={{ backgroundColor: Colors.azulelegante, color: Colors.brancocinza, top: 35, right: 1070 }}>
                   Próximo <ArrowForwardIosIcon fontSize="small" />
                </Button>
             </Box>
 
-            <Box sx={{ overflowX: 'auto', borderRadius: '10px' }}>
-               <Box sx={{ minWidth: 1000, border: '3px solid black' }}>
-                  <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)' }}>
-                     <Box sx={{ backgroundColor: Colors.roxobom, color: 'white', p: 1, fontWeight: 'bold', textAlign: 'center', borderLeft: '2px solid #96963e', borderTop: '2px solid #96963e', borderRight: '2px solid #96963e', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+            <Box sx={{
+               overflowX: 'auto',
+               borderRadius: '10px',
+            }}>
+               <Box sx={{
+                  minWidth: 1000,
+                  border: '3px solid black',
+                  width: '2700px',
+                  maxWidth: '2700px',
+                  height: '1186px',
+                  maxHeight: '1186px',
+
+               }}>
+                  <Box sx={{ display: 'grid', gridTemplateColumns: '165px repeat(7, 1fr)' }}>
+                     <Box sx={{
+                        backgroundColor: Colors.roxobom,
+                        color: 'white',
+                        p: 1,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        borderLeft: '2px solid #96963e',
+                        borderTop: '2px solid #96963e',
+                        borderRight: '2px solid #96963e',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: 1,
+                        width: '165px',
+                        maxWidth: '165px',
+                        height: '60px',
+                        maxHheight: '60px',
+                     }}>
                         <AccessTimeIcon fontSize="small" /> Hora
                      </Box>
                      {diasMostrados.map((dia, index) => (
-                        <Box key={index} sx={{ background: Colors.roxobom, color: isToday(dia) ? 'Window' : 'white', p: 1, fontWeight: 'bold', textAlign: 'center', border: isToday(dia) ? '5px solid green' : '2px solid #96963e' }}>
+                        //Box dos dias
+                        <Box key={index} sx={{
+                           background: Colors.roxobom,
+                           color: isToday(dia) ? 'Window' : 'white',
+                           p: 1,
+                           fontWeight: 'bold',
+                           textAlign: 'center',
+                           border: isToday(dia) ? '5px solid green' : '2px solid #96963e',
+                        }}>
                            {isToday(dia)
                               ? `Hoje, ${format(dia, 'EEE - dd/MM/yyyy', { locale: ptBR })}`
                               : format(dia, 'EEE - dd/MM/yyyy', { locale: ptBR })}
@@ -117,8 +160,22 @@ export default function Calendario() {
 
                   {horarios.map((hora, rowIndex) => {
                      return (
-                        <Box key={rowIndex} sx={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)' }}>
-                           <Box sx={{ p: 1, textAlign: 'center', display: 'flex', border: '2px solid #96963e', justifyContent: 'center', alignItems: 'center', gap: 1, color: 'snow', backgroundColor: Colors.roxobom }}>
+                        <Box key={rowIndex} sx={{ display: 'grid', gridTemplateColumns: '165px repeat(7, 1fr)' }}>
+                           <Box sx={{
+                              p: 1,
+                              textAlign: 'center',
+                              display: 'flex',
+                              border: '2px solid #96963e',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              gap: 1,
+                              color: 'snow',
+                              backgroundColor: Colors.roxobom,
+                              width: '165px',
+                              maxWidth: '165px',
+                              height: '80px',
+                              maxHeight: '80px',
+                           }}>
                               <AccessTimeIcon fontSize="small" /> {hora}
                            </Box>
                            {diasMostrados.map((dia, colIndex) => {
@@ -202,13 +259,15 @@ export default function Calendario() {
                                        </Paper>
                                     ))}
                                     {estaVazio && (
-                                       <AddCircleOutlineIcon
-                                          sx={{ fontSize: 28, color: Colors.verdeforte, opacity: 0.6, cursor: 'pointer' }}
-                                          onClick={(e) => {
-                                             e.stopPropagation();
-                                             redirecionarParaNovaConsulta(dataCompleta);
-                                          }}
-                                       />
+                                       <Stack direction="row" spacing={1} alignItems="center" sx={{ cursor: "pointer" }} onClick={(e) => {
+                                          e.stopPropagation();
+                                          redirecionarParaNovaConsulta(dataCompleta);
+                                       }}>
+                                          <AddCircleOutlineIcon sx={{ fontSize: 28, color: Colors.verdeforte, opacity: 0.6 }} />
+                                          <Typography variant="body1" color="textPrimary">
+                                             Nova Consulta
+                                          </Typography>
+                                       </Stack>
                                     )}
                                  </Box>
                               );
