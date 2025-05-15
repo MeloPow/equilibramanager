@@ -1,0 +1,77 @@
+ ┣ 📂src
+ ┃ ┣ 📂assets
+ ┃ ┃ ┣ 📂fonts
+ ┃ ┃ ┗ 📂images
+ ┃ ┣ 📂db
+ ┃ ┃ ┣ 📜consulta.ts
+ ┃ ┃ ┣ 📜database.ts
+ ┃ ┃ ┣ 📜paciente.ts
+ ┃ ┃ ┗ 📜relatorio_evolucao.ts
+ ┃ ┣ 📂renderer
+ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┣ 📂ListarConsultas
+ ┃ ┃ ┃ ┣ 📜ConsultaCard.tsx
+ ┃ ┃ ┃ ┣ 📜FormularioCard.tsx
+ ┃ ┃ ┃ ┣ 📜ModalDetalhesConsulta.tsx
+ ┃ ┃ ┃ ┣ 📜ModalRelatorioEvolucao.tsx
+ ┃ ┃ ┃ ┣ 📜PacienteAutocomplete.tsx
+ ┃ ┃ ┃ ┣ 📜VoltarGlobal.tsx
+ ┃ ┃ ┃ ┣ 📜XPCPFField.tsx
+ ┃ ┃ ┃ ┣ 📜XPDateField.tsx
+ ┃ ┃ ┃ ┗ 📜XPPhoneField.tsx
+ ┃ ┃ ┣ 📂layouts
+ ┃ ┃ ┃ ┗ 📜MainLayout.tsx
+ ┃ ┃ ┣ 📂pages
+ ┃ ┃ ┃ ┣ 📂Calendario
+ ┃ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┃ ┣ 📂Consulta
+ ┃ ┃ ┃ ┃ ┣ 📜consultaModule.css
+ ┃ ┃ ┃ ┃ ┣ 📜editarConsulta.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜listarConsultas.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜novaConsulta.tsx
+ ┃ ┃ ┃ ┣ 📂Paciente
+ ┃ ┃ ┃ ┃ ┣ 📜adicionar.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜editar.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜listar.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜PacienteModule.css
+ ┃ ┃ ┃ ┣ 📂Painel
+ ┃ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜PainelModule.css
+ ┃ ┃ ┃ ┣ 📂RelatorioEvolucao
+ ┃ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜novaEvolucao.tsx
+ ┃ ┃ ┃ ┣ 📜Splash.css
+ ┃ ┃ ┃ ┗ 📜Splash.tsx
+ ┃ ┃ ┣ 📂services
+ ┃ ┃ ┃ ┣ 📜consultaService.ts
+ ┃ ┃ ┃ ┣ 📜pacienteService.ts
+ ┃ ┃ ┃ ┗ 📜relatorioEvolucaoService.ts
+ ┃ ┃ ┗ 📂styles
+ ┃ ┃ ┃ ┣ 📜Colors.ts
+ ┃ ┃ ┃ ┗ 📜styles.ts
+ ┃ ┣ 📂types
+ ┃ ┃ ┣ 📜assets.d.ts
+ ┃ ┃ ┣ 📜Consulta.ts
+ ┃ ┃ ┣ 📜globals.d.ts
+ ┃ ┃ ┣ 📜Paciente.ts
+ ┃ ┃ ┣ 📜RelatorioEvolucao.ts
+ ┃ ┃ ┗ 📜RelatorioPaciente.ts
+ ┃ ┣ 📜App.tsx
+ ┃ ┣ 📜index.html
+ ┃ ┣ 📜index.ts
+ ┃ ┣ 📜preload.ts
+ ┃ ┗ 📜renderer.tsx
+ ┣ 📜.eslintrc.json
+ ┣ 📜.gitignore
+ ┣ 📜estrutura.txt
+ ┣ 📜forge.config.ts
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜README.md
+ ┣ 📜tsconfig.json
+ ┣ 📜webpack.main.config.ts
+ ┣ 📜webpack.plugins.ts
+ ┣ 📜webpack.renderer.config.ts
+ ┗ 📜webpack.rules.ts

@@ -26,6 +26,16 @@ const PacienteAutocomplete: React.FC<PacienteAutocompleteProps> = ({ onSeleciona
 
    const pacienteSelecionado = pacientes.find(p => p.id === pacienteSelecionadoId) || null;
 
+   // Sincronizar inputValue com o nome do paciente selecionado
+   useEffect(() => {
+      const paciente = pacientes.find(p => p.id === pacienteSelecionadoId);
+      if (paciente) {
+         setInputValue(paciente.nome_completo);
+      } else {
+         setInputValue('');
+      }
+   }, [pacienteSelecionadoId, pacientes]);
+
    return (
       <Autocomplete
          options={pacientes}
@@ -35,10 +45,9 @@ const PacienteAutocomplete: React.FC<PacienteAutocompleteProps> = ({ onSeleciona
             if (novoPaciente) {
                onSelecionar(novoPaciente);
             } else {
-               onSelecionar({ id: null, nome_completo: '' } as Paciente); // valor vazio e seguro
+               onSelecionar({ id: null, nome_completo: '' } as Paciente);
             }
          }}
-
          inputValue={inputValue}
          onInputChange={(event, novoValor) => setInputValue(novoValor)}
          loading={carregando}

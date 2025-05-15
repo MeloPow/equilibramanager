@@ -34,7 +34,7 @@ const CustomAppBar = styled(AppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<{ open?: boolean }>(({ theme, open }) => ({
     zIndex: theme.zIndex.drawer + 2,
-    backgroundColor: Colors.amareloescuro,
+    backgroundColor: 'linear-gradient(145deg, #115e40, #818322 )',
     height: 100,
     display: 'flex',
     justifyContent: 'center',

@@ -70,6 +70,7 @@ export function initializeDatabase(dbPath: string) {
   ).run();
 
   // Tentativa de adicionar colunas em consultas (apenas se não existirem)
+  /*
   const alterarConsultas = [
     'ALTER TABLE consultas ADD COLUMN foi_paga INTEGER NOT NULL DEFAULT 0',
     'ALTER TABLE consultas ADD COLUMN motivo_cancelamento TEXT',
@@ -86,7 +87,7 @@ export function initializeDatabase(dbPath: string) {
     } catch (e) {
       console.warn(`Erro ao tentar alterar tabela: ${sql} →`, e.message);
     }
-  }
+  }*/
 
   dbInstance = db;
   return db;

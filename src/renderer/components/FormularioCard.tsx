@@ -35,6 +35,7 @@ export const FormularioCard: React.FC<FormularioCardProps> = ({ children, width 
                left: 0,
                borderTopLeftRadius: '16px',
                borderTopRightRadius: '16px',
+               pointerEvents: 'none', // ✅ ESSENCIAL
             }}
          />
          <Box sx={{ mt: 6 }}>{children}</Box>
