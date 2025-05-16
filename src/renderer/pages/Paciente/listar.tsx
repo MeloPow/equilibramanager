@@ -1,5 +1,40 @@
+
+
 // src/pages/Paciente/listar.tsx
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
+import { Box } from '@mui/material';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
+import PacienteTabs from '../../components/PacienteComps/PacienteTabs';
+import PacienteDataGrid from '../../components/PacienteComps/PacienteDataGrid';
+import background from '../../../assets/images/background3.png';
+import BotaoVoltar from '../../components/VoltarGlobal';
+
+export default function ListarPacientes() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const statusFiltro = (searchParams.get('status') as 'ativo' | 'pausado' | 'finalizado') || 'ativo';
+    const [status, setStatus] = useState<'ativo' | 'pausado' | 'finalizado'>(statusFiltro);
+
+    type ContextType = { drawerOpen: boolean };
+    const { drawerOpen } = useOutletContext<ContextType>();
+
+    const handleChange = (novoStatus: 'ativo' | 'pausado' | 'finalizado') => {
+        setStatus(novoStatus);
+        setSearchParams({ status: novoStatus });
+    };
+
+    return (
+        <div className="paciente-background" style={{ backgroundImage: `url(${background})` }}>
+            <BotaoVoltar drawerOpen={drawerOpen} />
+            <Box sx={{ px: 2, py: 4, height: '400px', maxHeight: '400px', width: '1400px', maxWidth: '1400px' }}>
+                <PacienteTabs statusFiltro={status} onChange={handleChange} />
+                <PacienteDataGrid status={status} />
+            </Box>
+        </div>
+    );
+}
+
+// src/pages/Paciente/listar.tsx
+/*import React, { useEffect, useMemo, useState } from 'react';
 import {
     Box,
     Container,
@@ -18,7 +53,7 @@ import { Colors } from '../../styles/Colors';
 import { Paciente } from '../../../types/Paciente';
 import background from '../../../assets/images/background3.png';
 import imagii from '../../../assets/images/background2.png';
-import cinzaqueimado from '../../../assets/images/cinzaqueimado.png';
+import imagiii from '../../../assets/images/papeljapones.png';
 import BotaoVoltar from '../../components/VoltarGlobal';
 
 export default function ListarPacientes() {
@@ -70,8 +105,9 @@ export default function ListarPacientes() {
                         width: '100%',
                         padding: '12px',
                         borderRadius: '12px',
+                        border: '2px double yellow',
                         color: 'white',
-                        fontFamily: 'Segoe UI, sans-serif',
+                        fontFamily: 'NOW, sans-serif',
                         fontWeight: 600,
                         textAlign: 'center',
                         letterSpacing: 1,
@@ -94,7 +130,7 @@ export default function ListarPacientes() {
                     />
 
                     {pacientesFiltrados.map((item) => (
-                        <Paper key={item.id} elevation={3} className="paciente-card" sx={{ backgroundColor: Colors.roxo2gradient }} >
+                        <Paper key={item.id} elevation={3} className="paciente-card" sx={{ backgroundImage: `url(${imagiii})` }} >
                             <Box onClick={() => toggleExpandir(item.id)} sx={{ cursor: 'pointer' }}>
                                 <Typography sx={{
                                     color: Colors.roxobom,
@@ -119,8 +155,8 @@ export default function ListarPacientes() {
                                         ✏️ Editar
                                     </button>
 
-                                    <button className="option-button" onClick={() => navigate(`/Paciente/sessoes?id=${item.id}`)}>
-                                        📆 Sessões
+                                    <button className="option-button" onClick={() => navigate(`/Paciente/consultas?id=${item.id}`)}>
+                                        📆 Consultas
                                     </button>
 
                                     <button className="option-button" onClick={() => navigate(`/Anamnese?id=${item.id}`)}>
@@ -182,10 +218,13 @@ export default function ListarPacientes() {
                             <Typography><strong>Nome:</strong> {detalhesPaciente.nome_completo}</Typography>
                             <Typography><strong>CPF:</strong> {detalhesPaciente.cpf}</Typography>
                             <Typography><strong>Telefone:</strong> {detalhesPaciente.telefone}</Typography>
+                            <Typography><strong>Tipo de Atendimento:</strong> {detalhesPaciente.tipo_atendimento}</Typography>
                             <Typography><strong>Email:</strong> {detalhesPaciente.email || '-'}</Typography>
                             <Typography><strong>Endereço:</strong> {detalhesPaciente.endereco || '-'}</Typography>
                             <Typography><strong>Profissão:</strong> {detalhesPaciente.profissao || '-'}</Typography>
                             <Typography><strong>Estado civil:</strong> {detalhesPaciente.estado_civil || '-'}</Typography>
+                            <Typography><strong>Religião:</strong> {detalhesPaciente.religiao || '-'}</Typography>
+                            <Typography><strong>Escolaridade:</strong> {detalhesPaciente.escolaridade || '-'}</Typography>
                             <Typography><strong>Status:</strong> {detalhesPaciente.status}</Typography>
                             <Typography>
                                 <strong>Observações:</strong>{' '}
@@ -207,4 +246,4 @@ export default function ListarPacientes() {
             </Modal>
         </div>
     );
-}
+}*/

@@ -98,7 +98,7 @@ export default function EditarConsulta() {
       <div className="paciente-background" style={{ backgroundImage: `url(${background})`, padding: '40px' }}>
          <BotaoVoltar drawerOpen={drawerOpen} />
          <FormularioAdd>
-            <Typography variant="h5" fontWeight="bold">Editar Consulta</Typography>
+            <Typography variant="h5" fontWeight="bold" sx={{ mb: '14px' }}>Editar Consulta</Typography>
 
             <TextField
                label="Data e Hora"
@@ -115,23 +115,6 @@ export default function EditarConsulta() {
                <MenuItem value="não realizada">Não realizada</MenuItem>
                <MenuItem value="cancelada">Cancelada</MenuItem>
             </TextField>
-
-            {status === 'realizada' && (
-               <Button
-                  variant="outlined"
-                  onClick={() => navigate(`/relatorio/novaEvolucao?consultaId=${id}`)}
-                  fullWidth
-                  sx={{
-                     fontSize: '16px', mb: 2,
-                     border: '2px dashed black',
-                     color: Colors.roxobom,
-                     backgroundImage: `url(${papel})`,
-                     '&:hover': { background: 'white' },
-                  }}
-               >
-                  📄 Relatório de Evolução
-               </Button>
-            )}
 
             <TextField select label="Tipo de Consulta" value={tipo} onChange={(e) => setTipo(e.target.value as any)} fullWidth sx={{ mb: 2 }}>
                <MenuItem value="normal">Normal</MenuItem>

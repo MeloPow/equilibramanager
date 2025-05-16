@@ -25,7 +25,7 @@ export default function AdicionarPaciente() {
     const navigate = useNavigate();
     const [nome, setNome] = useState('');
     const [dataNascimento, setDataNascimento] = useState('');
-    const [sexo, setSexo] = useState<'M' | 'F' | 'O'>('M');
+    const [sexo, setSexo] = useState<'Masculino' | 'Feminino' | 'Outro'>('Masculino');
     const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
     const [email, setEmail] = useState('');
@@ -33,6 +33,11 @@ export default function AdicionarPaciente() {
     const [profissao, setProfissao] = useState('');
     const [estadoCivil, setEstadoCivil] = useState('');
     const [observacoes, setObservacoes] = useState('');
+
+    const [religiao, setReligiao] = useState('');
+    const [escolaridade, setEscolaridade] = useState('');
+    const [tipoAtendimento, setTipoAtendimento] = useState<'particular' | 'convenio' | 'servico_social'>('particular');
+
     const [status, setStatus] = useState<'ativo' | 'pausado' | 'finalizado'>('ativo');
     type ContextType = { drawerOpen: boolean };
     const { drawerOpen } = useOutletContext<ContextType>();
@@ -78,6 +83,9 @@ export default function AdicionarPaciente() {
             profissao: profissao || undefined,
             estado_civil: estadoCivil || undefined,
             observacoes: observacoes || undefined,
+            religiao: religiao || undefined,
+            escolaridade: escolaridade || undefined,
+            tipo_atendimento: tipoAtendimento,
             status,
         };
 
@@ -103,6 +111,7 @@ export default function AdicionarPaciente() {
             <BotaoVoltar drawerOpen={drawerOpen} />
             <FormularioAdd>
                 <TextField placeholder="Nome completo *" value={nome} onChange={(e) => setNome(e.target.value)} fullWidth sx={{ mb: 2 }} />
+
                 <DataOtimizada
                     placeholder="Data de nascimento (DD/MM/AAAA) *"
                     value={dataNascimento}
@@ -110,18 +119,20 @@ export default function AdicionarPaciente() {
                     fullWidth
                     sx={{ mb: 2 }}
                 />
+
+
                 <FormControl fullWidth sx={{ mb: 2 }} variant="outlined">
                     <InputLabel id="sexo-label" shrink>Sexo *</InputLabel>
                     <Select
                         labelId="sexo-label"
                         id="sexo"
                         value={sexo}
-                        onChange={(e) => setSexo(e.target.value as 'M' | 'F' | 'O')}
+                        onChange={(e) => setSexo(e.target.value as 'Masculino' | 'Feminino' | 'Outro')}
                         label="Sexo *"
                     >
-                        <MenuItem value="M">Masculino</MenuItem>
-                        <MenuItem value="F">Feminino</MenuItem>
-                        <MenuItem value="O">Outro</MenuItem>
+                        <MenuItem value="Masculino">Masculino</MenuItem>
+                        <MenuItem value="Feminino">Feminino</MenuItem>
+                        <MenuItem value="Outro">Outro</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -140,9 +151,26 @@ export default function AdicionarPaciente() {
                     fullWidth
                     sx={{ mb: 2 }}
                 />
+                <FormControl fullWidth sx={{ mb: 2 }} variant="outlined">
+                    <InputLabel id="tipo-atendimento-label" shrink>Tipo de Atendimento *</InputLabel>
+                    <Select
+                        labelId="tipo-atendimento-label"
+                        id="tipoAtendimento"
+                        value={tipoAtendimento}
+                        onChange={(e) => setTipoAtendimento(e.target.value as 'particular' | 'convenio' | 'servico_social')}
+                        label="Tipo de Atendimento *"
+                    >
+                        <MenuItem value="particular">Particular</MenuItem>
+                        <MenuItem value="convenio">Convênio</MenuItem>
+                        <MenuItem value="servico_social">Serviço Social</MenuItem>
+                    </Select>
+                </FormControl>
+
                 <TextField placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} fullWidth sx={{ mb: 2 }} />
                 <TextField placeholder="Endereço" value={endereco} onChange={(e) => setEndereco(e.target.value)} fullWidth sx={{ mb: 2 }} />
                 <TextField placeholder="Profissão" value={profissao} onChange={(e) => setProfissao(e.target.value)} fullWidth sx={{ mb: 2 }} />
+                <TextField placeholder="Religião" value={religiao} onChange={(e) => setReligiao(e.target.value)} fullWidth sx={{ mb: 2 }} />
+                <TextField placeholder="Escolaridade" value={escolaridade} onChange={(e) => setEscolaridade(e.target.value)} fullWidth sx={{ mb: 2 }} />
                 <TextField placeholder="Estado civil" value={estadoCivil} onChange={(e) => setEstadoCivil(e.target.value)} fullWidth sx={{ mb: 2 }} />
                 <FormControl fullWidth sx={{ mb: 2 }} variant="outlined">
                     <InputLabel id="status-label" shrink>Status</InputLabel>

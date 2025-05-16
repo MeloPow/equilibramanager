@@ -5,9 +5,9 @@ export function criarPaciente(paciente: Paciente) {
   const db = getDb();
   const stmt = db.prepare(`
     INSERT INTO pacientes (
-      nome_completo, data_nascimento, sexo, cpf, telefone,
-      email, endereco, profissao, estado_civil, observacoes, status
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      nome_completo, data_nascimento, sexo, cpf, telefone, tipo_atendimento, 
+      email, endereco, profissao, estado_civil, religiao, escolaridade, status, observacoes
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
   const info = stmt.run(
     paciente.nome_completo,
@@ -15,12 +15,15 @@ export function criarPaciente(paciente: Paciente) {
     paciente.sexo,
     paciente.cpf,
     paciente.telefone,
+    paciente.tipo_atendimento,
     paciente.email,
     paciente.endereco,
     paciente.profissao,
     paciente.estado_civil,
-    paciente.observacoes,
-    paciente.status || 'ativo'
+    paciente.religiao,
+    paciente.escolaridade,
+    paciente.status || 'ativo',
+    paciente.observacoes
   );
   return info.lastInsertRowid;
 }
@@ -46,27 +49,34 @@ export function atualizarPaciente(paciente: Paciente) {
       sexo = ?,
       cpf = ?,
       telefone = ?,
+      tipo_atendimento = ?,
       email = ?,
       endereco = ?,
       profissao = ?,
       estado_civil = ?,
-      observacoes = ?,
-      status = ?
+      religiao = ?,
+      escolaridade = ?,
+      status = ?,
+      observacoes = ?
     WHERE id = ?
   `);
+
   stmt.run(
     paciente.nome_completo,
     paciente.data_nascimento,
     paciente.sexo,
     paciente.cpf,
     paciente.telefone,
+    paciente.tipo_atendimento,
     paciente.email,
     paciente.endereco,
     paciente.profissao,
     paciente.estado_civil,
-    paciente.observacoes,
+    paciente.religiao,
+    paciente.escolaridade,
     paciente.status,
-    paciente.id
+    paciente.observacoes,
+    paciente.id // ✅ Agora sim, no lugar certo
   );
 }
 

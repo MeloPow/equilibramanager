@@ -14,8 +14,8 @@ import background from '../../../assets/images/background3.png';
 import FormularioBox from '../../components/FormularioCard';
 import CPFotimizado from '../../components/XPCPFField';
 import TelefoneOtimizado from '../../components/XPPhoneField';
+import DataOtimizada from '../../components/XPDateField';
 import BotaoVoltar from '../../components/VoltarGlobal';
-
 
 export default function EditarPaciente() {
     const navigate = useNavigate();
@@ -51,9 +51,9 @@ export default function EditarPaciente() {
         }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<any>) => {
         if (paciente) {
-            setPaciente({ ...paciente, [e.target.name]: e.target.value });
+            setPaciente({ ...paciente, [e.target.name || e.target.id]: e.target.value });
         }
     };
 
@@ -77,6 +77,30 @@ export default function EditarPaciente() {
                         variant="outlined"
                         sx={{ mb: 2 }}
                     />
+
+                    <DataOtimizada
+                        placeholder="Data de nascimento (DD/MM/AAAA) *"
+                        value={paciente.data_nascimento}
+                        onChange={(val) => setPaciente({ ...paciente, data_nascimento: val })}
+                        fullWidth
+                        sx={{ mb: 2 }}
+                    />
+
+                    <FormControl fullWidth sx={{ mb: 2 }} variant="outlined">
+                        <InputLabel id="sexo-label" shrink>Sexo *</InputLabel>
+                        <Select
+                            labelId="sexo-label"
+                            id="sexo"
+                            value={paciente.sexo}
+                            onChange={(e) => setPaciente({ ...paciente, sexo: e.target.value as 'Masculino' | 'Feminino' | 'Outro' })}
+                            label="Sexo *"
+                        >
+                            <MenuItem value="Masculino">Masculino</MenuItem>
+                            <MenuItem value="Feminino">Feminino</MenuItem>
+                            <MenuItem value="Outro">Outro</MenuItem>
+                        </Select>
+                    </FormControl>
+
                     <CPFotimizado
                         label="CPF"
                         value={paciente.cpf}
@@ -92,35 +116,29 @@ export default function EditarPaciente() {
                         fullWidth
                         sx={{ mb: 2 }}
                     />
+
+                    <FormControl fullWidth sx={{ mb: 2 }} variant="outlined">
+                        <InputLabel id="tipo-atendimento-label" shrink>Tipo de Atendimento</InputLabel>
+                        <Select
+                            labelId="tipo-atendimento-label"
+                            id="tipo_atendimento"
+                            value={paciente.tipo_atendimento}
+                            onChange={(e) => setPaciente({ ...paciente, tipo_atendimento: e.target.value as Paciente['tipo_atendimento'] })}
+                            label="Tipo de Atendimento"
+                        >
+                            <MenuItem value="particular">Particular</MenuItem>
+                            <MenuItem value="convenio">Convênio</MenuItem>
+                            <MenuItem value="servico_social">Serviço Social</MenuItem>
+                        </Select>
+                    </FormControl>
+
                     <TextField name="email" label="Email" value={paciente.email || ''} onChange={handleChange} fullWidth sx={{ mb: 2 }} />
                     <TextField name="endereco" label="Endereço" value={paciente.endereco || ''} onChange={handleChange} fullWidth sx={{ mb: 2 }} />
-                    <TextField
-                        name="profissao"
-                        label="Profissão"
-                        value={paciente.profissao || ''}
-                        onChange={handleChange}
-                        fullWidth
-                        sx={{ mb: 2 }}
-                    />
+                    <TextField name="profissao" label="Profissão" value={paciente.profissao || ''} onChange={handleChange} fullWidth sx={{ mb: 2 }} />
+                    <TextField name="estado_civil" label="Estado Civil" value={paciente.estado_civil || ''} onChange={handleChange} fullWidth sx={{ mb: 2 }} />
+                    <TextField name="religiao" label="Religião" value={paciente.religiao || ''} onChange={handleChange} fullWidth sx={{ mb: 2 }} />
+                    <TextField name="escolaridade" label="Escolaridade" value={paciente.escolaridade || ''} onChange={handleChange} fullWidth sx={{ mb: 2 }} />
 
-                    <TextField
-                        name="estado_civil"
-                        label="Estado Civil"
-                        value={paciente.estado_civil || ''}
-                        onChange={handleChange}
-                        fullWidth
-                        sx={{ mb: 2 }}
-                    />
-                    <TextField
-                        name="observacoes"
-                        label="Observações"
-                        value={paciente.observacoes || ''}
-                        onChange={handleChange}
-                        fullWidth
-                        multiline
-                        rows={3}
-                        sx={{ mb: 2 }}
-                    />
                     <FormControl fullWidth sx={{ mb: 2 }} variant="outlined">
                         <InputLabel id="status-label" shrink>Status</InputLabel>
                         <Select
@@ -135,6 +153,17 @@ export default function EditarPaciente() {
                             <MenuItem value="finalizado">Finalizado</MenuItem>
                         </Select>
                     </FormControl>
+
+                    <TextField
+                        name="observacoes"
+                        label="Observações"
+                        value={paciente.observacoes || ''}
+                        onChange={handleChange}
+                        fullWidth
+                        multiline
+                        rows={3}
+                        sx={{ mb: 2 }}
+                    />
 
                     <Button
                         onClick={handleAtualizar}
@@ -157,7 +186,6 @@ export default function EditarPaciente() {
 
                 </FormularioBox>
             )}
-            {/* Snackbars de feedback */}
             <Snackbar open={!!erro} autoHideDuration={3000} onClose={() => setErro('')}>
                 <Alert severity="error">{erro}</Alert>
             </Snackbar>
@@ -167,5 +195,4 @@ export default function EditarPaciente() {
             </Snackbar>
         </div>
     );
-
 }

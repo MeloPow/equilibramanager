@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Modal, Box, Typography } from '@mui/material';
-import { Consulta } from '../../types/Consulta';
+import { Consulta } from '../../../types/Consulta';
 
 interface Props {
    consulta: Consulta | null;

@@ -3,6 +3,7 @@ import { Consulta } from './Consulta';
 import { RelatorioEvolucao } from './RelatorioEvolucao';
 
 interface API {
+  paciente: any;
   // Paciente
   criarPaciente(paciente: Paciente): Promise<number>;
   listarPacientes(): Promise<Paciente[]>;

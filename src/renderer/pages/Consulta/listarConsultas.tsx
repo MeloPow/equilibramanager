@@ -17,7 +17,7 @@ import { Colors } from '../../styles/Colors';
 import BotaoVoltar from '../../components/VoltarGlobal';
 import PacienteAutocomplete from '../../components/PacienteAutocomplete';
 import ConsultaCard from '../../components/ConsultaCard';
-import ModalDetalhesConsulta from '../../components/ModalDetalhesConsulta';
+import ModalDetalhesConsulta from '../../components/ListarConsultas/ModalDetalhesConsulta';
 import ModalRelatorioEvolucao from '../../components/ModalRelatorioEvolucao';
 
 export default function ListarConsultas() {

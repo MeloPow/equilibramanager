@@ -2,13 +2,16 @@ export interface Paciente {
   id?: number;
   nome_completo: string;
   data_nascimento: string;
-  sexo: 'M' | 'F' | 'O';
+  sexo: 'Masculino' | 'Feminino' | 'Outro';
   cpf: string;
-  telefone: string;
+  telefone?: string;
+  tipo_atendimento: 'particular' | 'convenio' | 'servico_social';
   email?: string | null;
   endereco?: string | null;
   profissao?: string | null;
   estado_civil?: string | null;
-  observacoes?: string | null;
+  religiao?: string | null;
+  escolaridade?: string | null;
   status: 'ativo' | 'pausado' | 'finalizado';
+  observacoes?: string | null;
 }

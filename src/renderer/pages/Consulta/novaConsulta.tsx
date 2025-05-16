@@ -125,26 +125,6 @@ export default function NovaConsulta() {
                <MenuItem value="não realizada">Não realizada</MenuItem>
                <MenuItem value="cancelada">Cancelada</MenuItem>
             </TextField>
-            {status === 'realizada' && (
-               <Button
-                  variant="outlined"
-                  onClick={() => navigate(`/relatorio/evolucao?consultaId=${pacienteId}`)}
-                  fullWidth
-                  sx={{
-                     fontVariant: 'historical-forms',
-                     fontSize: '16px',
-                     mb: 2,
-                     border: "2px dashed black",
-                     color: Colors.roxobom,
-                     backgroundImage: `url(${imagi})`,
-                     '&:hover': {
-                        background: 'white',
-                     },
-                  }}
-               >
-                  📄 Relatório de Evolução
-               </Button>
-            )}
             <TextField select label="Tipo de Consulta" value={tipo} onChange={(e) => setTipo(e.target.value as any)} fullWidth sx={{ mb: '8px' }}>
                <MenuItem value="normal">Normal</MenuItem>
                <MenuItem value="conveniada">Conveniada</MenuItem>

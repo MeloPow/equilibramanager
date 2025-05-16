@@ -28,26 +28,15 @@ export default function Paciente() {
                     ➕ Adicionar Paciente
                 </button>
 
-                <button className="menu-button" onClick={toggleExpand}>
-                    Gerenciar pacientes ▾
+                <button className="menu-button" onClick={() => navigate('./listar?status=ativo')}>
+                    📋 Lista de pacientes
                 </button>
 
-                {expanded && (
-                    <div className="options-box">
-                        <button className="option-button" onClick={() => navigate('./listar?status=ativo')}>
-                            📋 Listar pacientes ativos
-                        </button>
-                        <button className="option-button" onClick={() => navigate('./listar?status=pausado')}>
-                            📋 Listar pacientes pausados
-                        </button>
-                        <button className="option-button" onClick={() => navigate('./listar?status=finalizado')}>
-                            📋 Listar pacientes finalizados
-                        </button>
-                        <button className="option-button" onClick={() => navigate('/Pacientes/aniversariantes')}>
-                            🎉 Aniversariantes do mês
-                        </button>
-                    </div>
-                )}
+                <button className="menu-button" onClick={() => navigate('/Pacientes/aniversariantes')}>
+                    🎉 Aniversariantes do mês
+                </button>
+
+
             </div>
         </div>
     );

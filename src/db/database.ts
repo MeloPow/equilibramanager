@@ -23,12 +23,15 @@ export function initializeDatabase(dbPath: string) {
       sexo TEXT,
       cpf TEXT NOT NULL,
       telefone TEXT NOT NULL,
+      tipo_atendimento TEXT DEFAULT 'particular',
       email TEXT,
       endereco TEXT,
       profissao TEXT,
       estado_civil TEXT,
-      observacoes TEXT,
-      status TEXT NOT NULL DEFAULT 'ativo'
+      religiao TEXT,
+      escolaridade TEXT,
+      status TEXT NOT NULL DEFAULT 'ativo',
+      observacoes TEXT
     )
   `
   ).run();
