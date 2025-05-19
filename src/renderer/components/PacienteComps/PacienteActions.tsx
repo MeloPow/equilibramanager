@@ -38,7 +38,7 @@ export default function PacienteActions({ paciente, onClose }: PacienteActionsPr
                ✏️ Editar
             </Button>
             <Button variant="outlined" onClick={() => navegar(`/Paciente/sessoes?id=${paciente.id}`)}>
-               📆 Sessões
+               📆 Consultas
             </Button>
             <Button variant="outlined" onClick={() => navegar(`/Anamnese?id=${paciente.id}`)}>
                📄 Anamnese

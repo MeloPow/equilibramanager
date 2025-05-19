@@ -10,9 +10,14 @@
  ┃ ┣ 📂renderer
  ┃ ┃ ┣ 📂components
  ┃ ┃ ┃ ┣ 📂ListarConsultas
+ ┃ ┃ ┃ ┃ ┗ 📜ModalDetalhesConsulta.tsx
+ ┃ ┃ ┃ ┣ 📂PacienteComps
+ ┃ ┃ ┃ ┃ ┣ 📜PacienteActions.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜PacienteDataGrid.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜PacienteModalDetalhes.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜PacienteTabs.tsx
  ┃ ┃ ┃ ┣ 📜ConsultaCard.tsx
  ┃ ┃ ┃ ┣ 📜FormularioCard.tsx
- ┃ ┃ ┃ ┣ 📜ModalDetalhesConsulta.tsx
  ┃ ┃ ┃ ┣ 📜ModalRelatorioEvolucao.tsx
  ┃ ┃ ┃ ┣ 📜PacienteAutocomplete.tsx
  ┃ ┃ ┃ ┣ 📜VoltarGlobal.tsx

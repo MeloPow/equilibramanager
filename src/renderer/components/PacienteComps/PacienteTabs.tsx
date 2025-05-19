@@ -1,6 +1,7 @@
 // src/renderer/components/PacienteTabs.tsx
 import React from 'react';
 import { Tabs, Tab, Box, Typography } from '@mui/material';
+import { Colors } from '../../../renderer/styles/Colors';
 
 interface PacienteTabsProps {
    statusFiltro: 'ativo' | 'pausado' | 'finalizado';
@@ -20,7 +21,7 @@ export default function PacienteTabs({ statusFiltro, onChange }: PacienteTabsPro
                padding: 2,
                fontWeight: 600,
                textAlign: 'center',
-               backgroundColor: '#673ab7',
+               backgroundColor: Colors.roxobom,
                color: '#fff',
                borderTopLeftRadius: 8,
                borderTopRightRadius: 8,

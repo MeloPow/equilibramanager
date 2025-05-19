@@ -1,12 +1,28 @@
 // src/renderer/components/PacienteDataGrid.tsx
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Modal, Typography, Fade, Avatar, useTheme } from '@mui/material';
+import {
+   Box,
+   Button,
+   Modal,
+   Typography,
+   Fade,
+   Avatar,
+   useTheme,
+   Tooltip,
+   Chip,
+   TextField,
+   InputAdornment
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Paciente } from '../../../types/Paciente';
 import { listarPacientes } from '../../services/pacienteService';
 import PacienteActions from './PacienteActions';
 import BuildIcon from '@mui/icons-material/Build';
-import imagii from '../../../assets/images/background2.png'
+import imagii from '../../../assets/images/papeljapones.png'
+import imagiii from '../../../assets/images/couro.png'
+import { Colors } from '../../../renderer/styles/Colors';
+
 interface PacienteDataGridProps {
    status: 'ativo' | 'pausado' | 'finalizado';
 }
@@ -14,93 +30,223 @@ interface PacienteDataGridProps {
 export default function PacienteDataGrid({ status }: PacienteDataGridProps) {
    const theme = useTheme();
    const [pacientes, setPacientes] = useState<Paciente[]>([]);
+   const [busca, setBusca] = useState('');
    const [modalAberto, setModalAberto] = useState(false);
    const [pacienteSelecionado, setPacienteSelecionado] = useState<Paciente | null>(null);
 
    useEffect(() => {
       const carregar = async () => {
          const lista = await listarPacientes();
-         const filtrados = lista.filter(p => p.status === status);
+         const filtrados = lista.filter(
+            (p) => p.status === status && (
+               p.nome_completo.toLowerCase().includes(busca.toLowerCase()) ||
+               p.telefone.includes(busca)
+            )
+         );
          setPacientes(filtrados);
       };
       carregar();
-   }, [status]);
+   }, [status, busca]);
 
    const abrirModal = (paciente: Paciente) => {
       setPacienteSelecionado(paciente);
       setModalAberto(true);
    };
 
+   function calcularIdade(dataNascimento: string): number {
+      const hoje = new Date();
+      const nascimento = new Date(dataNascimento);
+      if (isNaN(nascimento.getTime())) return 0;
+      let idade = hoje.getFullYear() - nascimento.getFullYear();
+      const m = hoje.getMonth() - nascimento.getMonth();
+      if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+         idade--;
+      }
+      return idade;
+   }
+
    const colunas: GridColDef[] = [
       {
          field: 'nome_completo',
          headerName: 'Nome Completo',
          flex: 1.5,
+         sortable: false,
+         resizable: false,
+         disableColumnMenu: true,
          renderCell: (params) => (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
                   {params.row.nome_completo.charAt(0)}
                </Avatar>
-               <Typography fontWeight={500} fontSize="1.2rem" fontFamily={'Montserrat'}>{params.row.nome_completo}</Typography>
+               <Typography fontWeight={500} fontSize="1.2rem" fontFamily={'Montserrat'}>
+                  {params.row.nome_completo}
+               </Typography>
             </Box>
          )
       },
-      { field: 'data_nascimento', headerName: 'Nascimento', flex: 1 },
-      { field: 'sexo', headerName: 'Sexo', flex: 0.6 },
-      { field: 'telefone', headerName: 'Telefone', flex: 1 },
-      { field: 'tipo_atendimento', headerName: 'Atendimento', flex: 1 },
+      {
+         field: 'idade',
+         headerName: 'Idade',
+         flex: 0.6,
+         sortable: false,
+         resizable: false,
+         disableColumnMenu: false,
+         renderCell: (params) => (
+            <Typography fontSize="1.1rem" fontFamily={'Now'}>
+               {calcularIdade(params.row.data_nascimento)} anos
+            </Typography>
+         )
+      },
+      {
+         field: 'sexo',
+         headerName: 'Sexo',
+         flex: 0.6,
+         sortable: false,
+         resizable: false,
+         disableColumnMenu: true,
+         renderCell: (params) => {
+            const valor = params.value;
+            const cores: Record<string, string> = {
+               Masculino: '#1976d2',
+               Feminino: '#d81b60',
+               Outro: '#9c27b0'
+            };
+            return (
+               <Chip
+                  label={valor}
+                  sx={{ backgroundColor: cores[valor] || '#aaa', color: '#fff', fontWeight: 500, mb: 10 }}
+               />
+            );
+         }
+      },
+      {
+         field: 'telefone',
+         headerName: 'Telefone',
+         flex: 1,
+         sortable: false,
+         resizable: false,
+         disableColumnMenu: true
+      },
+      {
+         field: 'tipo_atendimento',
+         headerName: 'Atendimento',
+         flex: 1,
+         sortable: false,
+         resizable: false,
+         disableColumnMenu: true,
+         renderCell: (params) => {
+            const tipo = params.value;
+            const cores: Record<string, string> = {
+               particular: '#4caf50',
+               convenio: '#2196f3',
+               servico_social: '#ff9800'
+            };
+            return (
+               <Chip
+                  label={tipo.replace('_', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
+                  sx={{
+                     backgroundColor: cores[tipo] || '#ccc',
+                     color: '#fff',
+                     fontWeight: 500,
+                     mb: 10
+                  }}
+               />
+            );
+         }
+      },
       {
          field: 'acoes',
          headerName: '',
          sortable: false,
+         resizable: false,
          filterable: false,
          disableColumnMenu: true,
-         flex: 0.5,
+         flex: 1.0,
          renderCell: (params: GridRenderCellParams) => (
             <Button
                variant="outlined"
                startIcon={<BuildIcon />}
                onClick={() => abrirModal(params.row)}
-               sx={{ fontWeight: 600, borderRadius: 3, color: theme.palette.primary.dark, borderColor: theme.palette.primary.light, width: '200px' }}
+               sx={{
+                  fontWeight: 600,
+                  borderRadius: 3,
+                  color: theme.palette.primary.dark,
+                  borderColor: theme.palette.primary.light,
+                  width: '200px',
+                  mb: 10
+               }}
             >
                Ações
             </Button>
-         ),
-      },
+         )
+      }
    ];
-
+   const ordenar = (campo: 'nome_completo' | 'idade') => {
+      const ordenado = [...pacientes].sort((a, b) => {
+         if (campo === 'idade') {
+            return calcularIdade(a.data_nascimento) - calcularIdade(b.data_nascimento);
+         }
+         return a[campo].localeCompare(b[campo]);
+      });
+      setPacientes(ordenado);
+   };
    return (
-      <Box sx={{ width: '100%', backgroundImage: `url(${imagii})` }}>
-         <DataGrid
-            rows={pacientes}
-            columns={colunas}
-            autoHeight
-            disableRowSelectionOnClick
-            getRowId={(row: Paciente) => row.id!}
-            hideFooterPagination
-            sx={{
-               backgroundColor: '#fff',
-               fontFamily: 'Now',
-               borderRadius: 2,
-               px: 2,
-               py: 1,
-               boxShadow: 3,
-               fontSize: '1rem',
-               '& .MuiDataGrid-columnHeaders': {
-                  backgroundColor: theme.palette.grey[100],
-                  fontWeight: 'bold',
-                  fontSize: '1.4rem',
-                  color: theme.palette.primary.dark,
-                  textTransform: 'uppercase',
-                  letterSpacing: 0.5,
-                  maxWidth: '1400px'
-               },
-               '& .MuiDataGrid-cell': {
-                  alignItems: 'center',
-                  fontSize: '1.2rem',
-               }
-            }}
-         />
+      <Box sx={{ width: '100%', backgroundColor: 'white', borderRadius: '5px', p: 2 }}>
+         <Box sx={{ maxWidth: 1400, mx: 'auto', backgroundColor: 'white', p: 3, borderRadius: 4, boxShadow: 5 }}>
+            <TextField
+               size="small"
+               placeholder="Buscar por nome ou telefone"
+               value={busca}
+               onChange={(e) => setBusca(e.target.value)}
+               sx={{ width: '100%', backgroundColor: '#f7f7f7', borderRadius: 2, mb: 2 }}
+               InputProps={{
+                  startAdornment: (
+                     <InputAdornment position="start">
+                        <SearchIcon />
+                     </InputAdornment>
+                  )
+               }}
+            />
+            <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+               <Button variant="outlined" onClick={() => ordenar('nome_completo')}>Ordenar por Nome</Button>
+               <Button variant="outlined" onClick={() => ordenar('idade')}>Ordenar por Idade</Button>
+            </Box>
+            <DataGrid
+               rows={pacientes}
+               columns={colunas}
+               autoHeight
+               disableRowSelectionOnClick
+               getRowId={(row: Paciente) => row.id!}
+               hideFooterPagination
+               sx={{
+                  backgroundColor: '#fff',
+                  fontFamily: 'Now',
+                  borderRadius: 2,
+                  px: 2,
+                  py: 1,
+                  boxShadow: 2,
+                  fontSize: '1rem',
+                  '& .MuiDataGrid-columnHeaders': {
+                     fontWeight: 'bold',
+                     fontSize: '1.2rem',
+                     color: theme.palette.primary.dark,
+                     textTransform: 'uppercase',
+                     letterSpacing: 0.5,
+                     backgroundColor: '#f1f1f1',
+                     borderBottom: '2px solid #ccc'
+                  },
+                  '& .MuiDataGrid-cell': {
+                     alignItems: 'center',
+                     fontSize: '1.1rem',
+                     p: 1
+                  },
+
+                  '& .MuiDataGrid-columnSeparator': {
+                     display: 'none'
+                  }
+               }}
+            />
+         </Box>
 
          <Modal open={modalAberto} onClose={() => setModalAberto(false)} closeAfterTransition>
             <Fade in={modalAberto}>
