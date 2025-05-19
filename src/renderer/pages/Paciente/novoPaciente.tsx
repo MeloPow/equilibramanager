@@ -15,11 +15,11 @@ import { salvarPaciente } from '../../services/pacienteService';
 import './PacienteModule.css';
 import { Colors } from '../../styles/Colors';
 import background from '../../../assets/images/background3.png'
-import FormularioAdd from "../../components/FormularioCard"
+import FormularioAdd from "../../components/forListaConsulta/FormularioCard"
 import BotaoVoltar from '../../components/VoltarGlobal'
-import DataOtimizada from '../../components/XPDateField';
-import CPFotimizado from '../../components/XPCPFField';
-import TelefoneOtimizado from '../../components/XPPhoneField'
+import DataOtimizada from '../../components/forNovoPaciente/XPDateField';
+import CPFotimizado from '../../components/forNovoPaciente/XPCPFField';
+import TelefoneOtimizado from '../../components/forNovoPaciente/XPPhoneField'
 
 export default function AdicionarPaciente() {
     const navigate = useNavigate();

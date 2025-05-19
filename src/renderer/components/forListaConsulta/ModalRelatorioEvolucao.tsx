@@ -1,8 +1,7 @@
 // src/renderer/components/ModalRelatorioEvolucao.tsx
-
 import React from 'react';
 import { Modal, Box, Typography, Button } from '@mui/material';
-import { RelatorioEvolucao } from '../../types/RelatorioEvolucao';
+import { RelatorioEvolucao } from '../../../types/RelatorioEvolucao';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {

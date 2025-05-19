@@ -6,9 +6,9 @@ import Splash from './renderer/pages/Splash';
 import Painel from './renderer/pages/Painel';
 import Paciente from './renderer/pages/Paciente';
 import MainLayout from './renderer/layouts/MainLayout';
-import AdicionarPaciente from './renderer/pages/Paciente/adicionar';
-import ListarPacientes from './renderer/pages/Paciente/listar';
-import EditarPaciente from './renderer/pages/Paciente/editar';
+import AdicionarPaciente from './renderer/pages/Paciente/novoPaciente';
+import ListarPacientes from './renderer/pages/Paciente/listarPacientes';
+import EditarPaciente from './renderer/pages/Paciente/editarPaciente';
 import Calendario from './renderer/pages/Calendario';
 import Consulta from './renderer/pages/Consulta';
 import NovaConsulta from './renderer/pages/Consulta/novaConsulta';
@@ -28,16 +28,16 @@ export default function App() {
                 <Route element={<MainLayout />}>
                     <Route path="/painel" element={<Painel />} />
                     <Route path="/paciente" element={<Paciente />} />
-                    <Route path="/paciente/adicionar" element={<AdicionarPaciente />} />
-                    <Route path="/paciente/listar" element={<ListarPacientes />} />
-                    <Route path="/paciente/editar" element={<EditarPaciente />} />
+                    <Route path="/paciente/novopaciente" element={<AdicionarPaciente />} />
+                    <Route path="/paciente/listarpacientes" element={<ListarPacientes />} />
+                    <Route path="/paciente/editarpaciente" element={<EditarPaciente />} />
                     <Route path="/calendario" element={<Calendario />} />
                     <Route path="/consulta" element={<Consulta />} />
-                    <Route path="/consulta/nova" element={<NovaConsulta />} />
+                    <Route path="/consulta/novaconsulta" element={<NovaConsulta />} />
                     <Route path="/consulta/listaconsultas" element={<ListarConsultas />} />
                     <Route path="/consulta/editarconsultas/:id" element={<EditarConsulta />} />
                     <Route path="/relatorio" element={<Relatorio />} />
-                    <Route path="/relatorio/evolucao" element={<NovaEvolucao />} />
+                    <Route path="/relatorio/novaevolucao" element={<NovaEvolucao />} />
 
                 </Route>
             </Routes>

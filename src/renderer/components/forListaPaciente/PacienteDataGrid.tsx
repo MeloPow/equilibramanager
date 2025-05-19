@@ -6,10 +6,7 @@ import {
    Modal,
    Typography,
    Fade,
-   Avatar,
    useTheme,
-   Tooltip,
-   Chip,
    TextField,
    InputAdornment
 } from '@mui/material';
@@ -18,10 +15,10 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Paciente } from '../../../types/Paciente';
 import { listarPacientes } from '../../services/pacienteService';
 import PacienteActions from './PacienteActions';
-import BuildIcon from '@mui/icons-material/Build';
 import imagii from '../../../assets/images/papeljapones.png'
 import imagiii from '../../../assets/images/couro.png'
-import { Colors } from '../../../renderer/styles/Colors';
+import PacienteFiltroBar from './PacienteFiltroBar';
+import { gerarColunas } from './ColunasPacientes';
 
 interface PacienteDataGridProps {
    status: 'ativo' | 'pausado' | 'finalizado';
@@ -65,122 +62,8 @@ export default function PacienteDataGrid({ status }: PacienteDataGridProps) {
       return idade;
    }
 
-   const colunas: GridColDef[] = [
-      {
-         field: 'nome_completo',
-         headerName: 'Nome Completo',
-         flex: 1.5,
-         sortable: false,
-         resizable: false,
-         disableColumnMenu: true,
-         renderCell: (params) => (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-               <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
-                  {params.row.nome_completo.charAt(0)}
-               </Avatar>
-               <Typography fontWeight={500} fontSize="1.2rem" fontFamily={'Montserrat'}>
-                  {params.row.nome_completo}
-               </Typography>
-            </Box>
-         )
-      },
-      {
-         field: 'idade',
-         headerName: 'Idade',
-         flex: 0.6,
-         sortable: false,
-         resizable: false,
-         disableColumnMenu: false,
-         renderCell: (params) => (
-            <Typography fontSize="1.1rem" fontFamily={'Now'}>
-               {calcularIdade(params.row.data_nascimento)} anos
-            </Typography>
-         )
-      },
-      {
-         field: 'sexo',
-         headerName: 'Sexo',
-         flex: 0.6,
-         sortable: false,
-         resizable: false,
-         disableColumnMenu: true,
-         renderCell: (params) => {
-            const valor = params.value;
-            const cores: Record<string, string> = {
-               Masculino: '#1976d2',
-               Feminino: '#d81b60',
-               Outro: '#9c27b0'
-            };
-            return (
-               <Chip
-                  label={valor}
-                  sx={{ backgroundColor: cores[valor] || '#aaa', color: '#fff', fontWeight: 500, mb: 10 }}
-               />
-            );
-         }
-      },
-      {
-         field: 'telefone',
-         headerName: 'Telefone',
-         flex: 1,
-         sortable: false,
-         resizable: false,
-         disableColumnMenu: true
-      },
-      {
-         field: 'tipo_atendimento',
-         headerName: 'Atendimento',
-         flex: 1,
-         sortable: false,
-         resizable: false,
-         disableColumnMenu: true,
-         renderCell: (params) => {
-            const tipo = params.value;
-            const cores: Record<string, string> = {
-               particular: '#4caf50',
-               convenio: '#2196f3',
-               servico_social: '#ff9800'
-            };
-            return (
-               <Chip
-                  label={tipo.replace('_', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
-                  sx={{
-                     backgroundColor: cores[tipo] || '#ccc',
-                     color: '#fff',
-                     fontWeight: 500,
-                     mb: 10
-                  }}
-               />
-            );
-         }
-      },
-      {
-         field: 'acoes',
-         headerName: '',
-         sortable: false,
-         resizable: false,
-         filterable: false,
-         disableColumnMenu: true,
-         flex: 1.0,
-         renderCell: (params: GridRenderCellParams) => (
-            <Button
-               variant="outlined"
-               startIcon={<BuildIcon />}
-               onClick={() => abrirModal(params.row)}
-               sx={{
-                  fontWeight: 600,
-                  borderRadius: 3,
-                  color: theme.palette.primary.dark,
-                  borderColor: theme.palette.primary.light,
-                  width: '200px',
-                  mb: 10
-               }}
-            >
-               Ações
-            </Button>
-         )
-      }
-   ];
+   const colunas = gerarColunas(theme, calcularIdade, abrirModal);
+
    const ordenar = (campo: 'nome_completo' | 'idade') => {
       const ordenado = [...pacientes].sort((a, b) => {
          if (campo === 'idade') {
@@ -191,7 +74,7 @@ export default function PacienteDataGrid({ status }: PacienteDataGridProps) {
       setPacientes(ordenado);
    };
    return (
-      <Box sx={{ width: '100%', backgroundColor: 'white', borderRadius: '5px', p: 2 }}>
+      <Box sx={{ width: '100%', backgroundColor: 'white', borderRadius: 4, boxShadow: 5 }}>
          <Box sx={{ maxWidth: 1400, mx: 'auto', backgroundColor: 'white', p: 3, borderRadius: 4, boxShadow: 5 }}>
             <TextField
                size="small"
@@ -230,10 +113,11 @@ export default function PacienteDataGrid({ status }: PacienteDataGridProps) {
                      fontWeight: 'bold',
                      fontSize: '1.2rem',
                      color: theme.palette.primary.dark,
-                     textTransform: 'uppercase',
+                     textTransform: 'capitalize',
+                     textShadow: 'unset',
                      letterSpacing: 0.5,
                      backgroundColor: '#f1f1f1',
-                     borderBottom: '2px solid #ccc'
+                     borderBottom: '3px solid #ccc'
                   },
                   '& .MuiDataGrid-cell': {
                      alignItems: 'center',

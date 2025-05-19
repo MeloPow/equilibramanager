@@ -1,7 +1,7 @@
 // src/renderer/components/PacienteTabs.tsx
 import React from 'react';
 import { Tabs, Tab, Box, Typography } from '@mui/material';
-import { Colors } from '../../../renderer/styles/Colors';
+import { Colors } from '../../styles/Colors';
 
 interface PacienteTabsProps {
    statusFiltro: 'ativo' | 'pausado' | 'finalizado';

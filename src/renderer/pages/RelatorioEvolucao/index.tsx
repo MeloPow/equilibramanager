@@ -2,7 +2,7 @@
 import React from 'react';
 import { Box, Typography, Button, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import FormularioAdd from '../../components/FormularioCard';
+import FormularioAdd from '../../components/forListaConsulta/FormularioCard';
 
 const RelatorioIndex: React.FC = () => {
    const navigate = useNavigate();

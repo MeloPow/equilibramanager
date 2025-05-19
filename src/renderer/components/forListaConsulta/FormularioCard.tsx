@@ -1,7 +1,7 @@
 // src/renderer/components/FormularioCard.tsx
 import React from 'react';
 import { Box } from '@mui/material';
-import imagii from '../../assets/images/background2.png'
+import imagii from '../../../assets/images/background2.png'
 
 interface FormularioCardProps {
    children: React.ReactNode;

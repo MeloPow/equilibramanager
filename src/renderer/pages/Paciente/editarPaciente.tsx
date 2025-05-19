@@ -11,10 +11,10 @@ import { buscarPacientePorId, atualizarPaciente } from '../../services/pacienteS
 import { Paciente } from '../../../types/Paciente';
 import './PacienteModule.css';
 import background from '../../../assets/images/background3.png';
-import FormularioBox from '../../components/FormularioCard';
-import CPFotimizado from '../../components/XPCPFField';
-import TelefoneOtimizado from '../../components/XPPhoneField';
-import DataOtimizada from '../../components/XPDateField';
+import FormularioBox from '../../components/forListaConsulta/FormularioCard';
+import CPFotimizado from '../../components/forNovoPaciente/XPCPFField';
+import TelefoneOtimizado from '../../components/forNovoPaciente/XPPhoneField';
+import DataOtimizada from '../../components/forNovoPaciente/XPDateField';
 import BotaoVoltar from '../../components/VoltarGlobal';
 
 export default function EditarPaciente() {
@@ -44,7 +44,7 @@ export default function EditarPaciente() {
             if (paciente) {
                 await atualizarPaciente(paciente);
                 setSucesso(true);
-                setTimeout(() => navigate('/paciente/listar'), 1500);
+                setTimeout(() => navigate('/paciente/listarpacientes'), 1500);
             }
         } catch {
             setErro('Erro ao atualizar paciente');

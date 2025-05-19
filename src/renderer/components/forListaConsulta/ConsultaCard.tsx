@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { Consulta } from '../../types/Consulta';
+import { Consulta } from '../../../types/Consulta';
 
 interface Props {
    consulta: Consulta;

@@ -4,8 +4,8 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import { useOutletContext, useSearchParams } from 'react-router-dom';
-import PacienteTabs from '../../components/PacienteComps/PacienteTabs';
-import PacienteDataGrid from '../../components/PacienteComps/PacienteDataGrid';
+import PacienteTabs from '../../components/forListaPaciente/PacienteTabs';
+import PacienteDataGrid from '../../components/forListaPaciente/PacienteDataGrid';
 import background from '../../../assets/images/background3.png';
 import BotaoVoltar from '../../components/VoltarGlobal';
 

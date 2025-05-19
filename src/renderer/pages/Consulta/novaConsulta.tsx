@@ -12,7 +12,7 @@ import { Paciente } from '../../../types/Paciente';
 import BotaoVoltar from '../../components/VoltarGlobal';
 import background from '../../../assets/images/background3.png';
 import imagi from '../../../assets/images/papeljapones.png';
-import FormularioAdd from '../../components/FormularioCard';
+import FormularioAdd from '../../components/forListaConsulta/FormularioCard';
 import { Colors } from '../../styles/Colors';
 import PacienteAutocomplete from '../../components/PacienteAutocomplete';
 

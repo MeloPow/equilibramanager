@@ -24,11 +24,11 @@ export default function Paciente() {
                         sx={{ width: 300, height: 200 }}
                     />
                 </div>
-                <button className="menu-button" onClick={() => navigate('./adicionar')}>
+                <button className="menu-button" onClick={() => navigate('./novopaciente')}>
                     ➕ Adicionar Paciente
                 </button>
 
-                <button className="menu-button" onClick={() => navigate('./listar?status=ativo')}>
+                <button className="menu-button" onClick={() => navigate('./listarpacientes?status=ativo')}>
                     📋 Lista de pacientes
                 </button>
 

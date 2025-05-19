@@ -16,9 +16,9 @@ import imagii from '../../../assets/images/background2.png';
 import { Colors } from '../../styles/Colors';
 import BotaoVoltar from '../../components/VoltarGlobal';
 import PacienteAutocomplete from '../../components/PacienteAutocomplete';
-import ConsultaCard from '../../components/ConsultaCard';
-import ModalDetalhesConsulta from '../../components/ListarConsultas/ModalDetalhesConsulta';
-import ModalRelatorioEvolucao from '../../components/ModalRelatorioEvolucao';
+import ConsultaCard from '../../components/forListaConsulta/ConsultaCard';
+import ModalDetalhesConsulta from '../../components/forListaConsulta/ConsultaModalDetalhes';
+import ModalRelatorioEvolucao from '../../components/forListaConsulta/ModalRelatorioEvolucao';
 
 export default function ListarConsultas() {
    const [consultas, setConsultas] = useState<Consulta[]>([]);

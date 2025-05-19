@@ -34,10 +34,10 @@ export default function PacienteActions({ paciente, onClose }: PacienteActionsPr
             <Button variant="outlined" color="primary" onClick={() => setModalAberto(true)}>
                🔍 Exibir detalhes
             </Button>
-            <Button variant="outlined" onClick={() => navegar(`/Paciente/editar?id=${paciente.id}`)}>
+            <Button variant="outlined" onClick={() => navegar(`/Paciente/editarpaciente?id=${paciente.id}`)}>
                ✏️ Editar
             </Button>
-            <Button variant="outlined" onClick={() => navegar(`/Paciente/sessoes?id=${paciente.id}`)}>
+            <Button variant="outlined" onClick={() => navegar(`/Paciente/consultas?id=${paciente.id}`)}>
                📆 Consultas
             </Button>
             <Button variant="outlined" onClick={() => navegar(`/Anamnese?id=${paciente.id}`)}>
