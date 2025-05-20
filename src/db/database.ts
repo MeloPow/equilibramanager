@@ -72,6 +72,14 @@ export function initializeDatabase(dbPath: string) {
   `
   ).run();
 
+  try {
+    db.prepare(
+      "ALTER TABLE consultas ADD COLUMN modalidade TEXT DEFAULT 'presencial'"
+    ).run();
+  } catch (e) {
+    // Evita erro caso a coluna já exista
+  }
+
   // Tentativa de adicionar colunas em consultas (apenas se não existirem)
   /*
   const alterarConsultas = [

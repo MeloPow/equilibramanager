@@ -1,4 +1,4 @@
-┣ 📂src
+ ┣ 📂src
  ┃ ┣ 📂assets
  ┃ ┃ ┣ 📂fonts
  ┃ ┃ ┗ 📂images
@@ -6,23 +6,27 @@
  ┃ ┃ ┣ 📜consulta.ts
  ┃ ┃ ┣ 📜database.ts
  ┃ ┃ ┣ 📜paciente.ts
- ┃ ┃ ┗ 📜relatorio_evolucao.ts
+ ┃ ┃ ┗ 📜relatorioEvolucao.ts
  ┃ ┣ 📂renderer
  ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┣ 📂ListarConsultas
- ┃ ┃ ┃ ┃ ┗ 📜ModalDetalhesConsulta.tsx
- ┃ ┃ ┃ ┣ 📂PacienteComps
+ ┃ ┃ ┃ ┣ 📂forListaConsulta
+ ┃ ┃ ┃ ┃ ┣ 📜ConsultaCard.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜ConsultaModalDetalhes.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜FormularioCard.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜ModalRelatorioEvolucao.tsx
+ ┃ ┃ ┃ ┣ 📂forListaPaciente
+ ┃ ┃ ┃ ┃ ┣ 📜PacienteColunas.tsx
  ┃ ┃ ┃ ┃ ┣ 📜PacienteActions.tsx
  ┃ ┃ ┃ ┃ ┣ 📜PacienteDataGrid.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜PacienteFiltroBar.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜PacienteModalDetalhes.tsx
  ┃ ┃ ┃ ┃ ┗ 📜PacienteTabs.tsx
- ┃ ┃ ┃ ┣ 📜ConsultaCard.tsx
- ┃ ┃ ┃ ┣ 📜FormularioCard.tsx
- ┃ ┃ ┃ ┣ 📜ModalRelatorioEvolucao.tsx
+ ┃ ┃ ┃ ┣ 📂forNewEditPaciente
+ ┃ ┃ ┃ ┃ ┣ 📜XPCPFField.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜XPDateField.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜XPPhoneField.tsx
  ┃ ┃ ┃ ┣ 📜PacienteAutocomplete.tsx
- ┃ ┃ ┃ ┣ 📜VoltarGlobal.tsx
- ┃ ┃ ┃ ┣ 📜XPCPFField.tsx
- ┃ ┃ ┃ ┣ 📜XPDateField.tsx
- ┃ ┃ ┃ ┗ 📜XPPhoneField.tsx
+ ┃ ┃ ┃ ┗ 📜VoltarGlobal.tsx
  ┃ ┃ ┣ 📂layouts
  ┃ ┃ ┃ ┗ 📜MainLayout.tsx
  ┃ ┃ ┣ 📂pages
@@ -35,10 +39,10 @@
  ┃ ┃ ┃ ┃ ┣ 📜listarConsultas.tsx
  ┃ ┃ ┃ ┃ ┗ 📜novaConsulta.tsx
  ┃ ┃ ┃ ┣ 📂Paciente
- ┃ ┃ ┃ ┃ ┣ 📜adicionar.tsx
- ┃ ┃ ┃ ┃ ┣ 📜editar.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜editarPaciente.tsx
  ┃ ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┃ ┣ 📜listar.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜listarPacientes.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜novoPaciente.tsx
  ┃ ┃ ┃ ┃ ┗ 📜PacienteModule.css
  ┃ ┃ ┃ ┣ 📂Painel
  ┃ ┃ ┃ ┃ ┣ 📜index.tsx

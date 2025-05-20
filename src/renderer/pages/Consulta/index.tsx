@@ -24,7 +24,7 @@ export default function Consulta() {
                         sx={{ width: 300, height: 200 }}
                     />
                 </div>
-                <button className="consulta-button" onClick={() => navigate('/Consulta/nova')}>
+                <button className="consulta-button" onClick={() => navigate('/Consulta/novaconsulta')}>
                     ➕ Nova consulta
                 </button>
 

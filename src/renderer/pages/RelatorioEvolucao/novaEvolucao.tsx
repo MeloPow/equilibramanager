@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { RelatorioEvolucao } from '../../../types/RelatorioEvolucao';
 import { criarRelatorioEvolucao, listarRelatoriosEvolucaoPorConsulta, atualizarRelatorioEvolucao } from '../../services/relatorioEvolucaoService';
 import { listarTodasConsultas } from '../../services/consultaService';
-import FormularioAdd from '../../components/forListaConsulta/FormularioCard';
+import FormularioAdd from '../../components/FormularioGlobal';
 import BotaoVoltar from '../../components/VoltarGlobal';
 import background from '../../../assets/images/background3.png';
 

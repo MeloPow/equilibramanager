@@ -2,23 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import {
    Box,
-   Button,
-   Modal,
-   Typography,
-   Fade,
    useTheme,
-   TextField,
-   InputAdornment
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import { Paciente } from '../../../types/Paciente';
 import { listarPacientes } from '../../services/pacienteService';
 import PacienteActions from './PacienteActions';
-import imagii from '../../../assets/images/papeljapones.png'
-import imagiii from '../../../assets/images/couro.png'
 import PacienteFiltroBar from './PacienteFiltroBar';
-import { gerarColunas } from './ColunasPacientes';
+import { gerarColunas } from './PacienteColunas';
 
 interface PacienteDataGridProps {
    status: 'ativo' | 'pausado' | 'finalizado';
@@ -30,20 +21,21 @@ export default function PacienteDataGrid({ status }: PacienteDataGridProps) {
    const [busca, setBusca] = useState('');
    const [modalAberto, setModalAberto] = useState(false);
    const [pacienteSelecionado, setPacienteSelecionado] = useState<Paciente | null>(null);
+   const [filtroAtendimento, setFiltroAtendimento] = useState<'todos' | 'particular' | 'convenio' | 'servico_social'>('todos');
 
    useEffect(() => {
       const carregar = async () => {
          const lista = await listarPacientes();
          const filtrados = lista.filter(
-            (p) => p.status === status && (
-               p.nome_completo.toLowerCase().includes(busca.toLowerCase()) ||
-               p.telefone.includes(busca)
-            )
+            (p) =>
+               p.status === status &&
+               (filtroAtendimento === 'todos' || p.tipo_atendimento === filtroAtendimento) &&
+               p.nome_completo.toLowerCase().includes(busca.toLowerCase())
          );
          setPacientes(filtrados);
       };
       carregar();
-   }, [status, busca]);
+   }, [status, busca, filtroAtendimento]);
 
    const abrirModal = (paciente: Paciente) => {
       setPacienteSelecionado(paciente);
@@ -76,24 +68,13 @@ export default function PacienteDataGrid({ status }: PacienteDataGridProps) {
    return (
       <Box sx={{ width: '100%', backgroundColor: 'white', borderRadius: 4, boxShadow: 5 }}>
          <Box sx={{ maxWidth: 1400, mx: 'auto', backgroundColor: 'white', p: 3, borderRadius: 4, boxShadow: 5 }}>
-            <TextField
-               size="small"
-               placeholder="Buscar por nome ou telefone"
-               value={busca}
-               onChange={(e) => setBusca(e.target.value)}
-               sx={{ width: '100%', backgroundColor: '#f7f7f7', borderRadius: 2, mb: 2 }}
-               InputProps={{
-                  startAdornment: (
-                     <InputAdornment position="start">
-                        <SearchIcon />
-                     </InputAdornment>
-                  )
-               }}
+            <PacienteFiltroBar
+               busca={busca}
+               setBusca={setBusca}
+               ordenar={ordenar}
+               filtroAtendimento={filtroAtendimento}
+               setFiltroAtendimento={setFiltroAtendimento}
             />
-            <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
-               <Button variant="outlined" onClick={() => ordenar('nome_completo')}>Ordenar por Nome</Button>
-               <Button variant="outlined" onClick={() => ordenar('idade')}>Ordenar por Idade</Button>
-            </Box>
             <DataGrid
                rows={pacientes}
                columns={colunas}
@@ -132,35 +113,12 @@ export default function PacienteDataGrid({ status }: PacienteDataGridProps) {
             />
          </Box>
 
-         <Modal open={modalAberto} onClose={() => setModalAberto(false)} closeAfterTransition>
-            <Fade in={modalAberto}>
-               <Box sx={{
-                  backgroundImage: `url(${imagii})`,
-                  padding: 4,
-                  borderRadius: 3,
-                  maxWidth: 500,
-                  width: '100%',
-                  maxHeight: '80vh',
-                  overflowY: 'auto',
-                  mx: 'auto',
-                  my: '10vh',
-                  boxShadow: 24,
-                  outline: 'none'
-               }}>
-                  {pacienteSelecionado && (
-                     <>
-                        <Typography variant="h6" gutterBottom>
-                           Ações para {pacienteSelecionado.nome_completo}
-                        </Typography>
-                        <PacienteActions
-                           paciente={pacienteSelecionado}
-                           onClose={() => setModalAberto(false)}
-                        />
-                     </>
-                  )}
-               </Box>
-            </Fade>
-         </Modal>
+         {pacienteSelecionado && (
+            <PacienteActions
+               paciente={pacienteSelecionado}
+               onClose={() => setPacienteSelecionado(null)}
+            />
+         )}
       </Box>
    );
 }

@@ -14,6 +14,8 @@ export const Colors = {
   amareloescuro: '#96963e',
   roxoescuro2: '#481d74',
   roxobom: '#481d74',
+  rosacenilda: '#C19FED',
+  rosacenilda2: '#C18903',
   roxobom80: '#481d7480',
   azulelegante: '#38c6e5',
   azulmarin: '#61bfd4',

@@ -1,4 +1,4 @@
-// src/renderer/components/PacienteComps/PacienteFiltroBar.tsx
+// src/renderer/components/forListaPaciente/PacienteFiltroBar.tsx
 
 import React from 'react';
 import {
@@ -10,7 +10,8 @@ import {
    InputLabel,
    MenuItem,
    Select,
-   SelectChangeEvent
+   SelectChangeEvent,
+   SelectProps
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -18,8 +19,8 @@ interface PacienteFiltroBarProps {
    busca: string;
    setBusca: (valor: string) => void;
    ordenar: (campo: 'nome_completo' | 'idade') => void;
-   filtroAtendimento: string;
-   setFiltroAtendimento: (valor: string) => void;
+   filtroAtendimento: 'todos' | 'particular' | 'convenio' | 'servico_social';
+   setFiltroAtendimento: (valor: 'todos' | 'particular' | 'convenio' | 'servico_social') => void;
 }
 
 export default function PacienteFiltroBar({
@@ -30,11 +31,10 @@ export default function PacienteFiltroBar({
    setFiltroAtendimento
 }: PacienteFiltroBarProps) {
    return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 2 }}>
-
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
          <TextField
             size="small"
-            placeholder="Buscar por nome ou telefone"
+            placeholder="Buscar por nome"
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
             sx={{ width: '100%', backgroundColor: '#f7f7f7', borderRadius: 2 }}
@@ -48,8 +48,12 @@ export default function PacienteFiltroBar({
          />
 
          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-            <Button variant="outlined" onClick={() => ordenar('nome_completo')}>Ordenar por Nome</Button>
-            <Button variant="outlined" onClick={() => ordenar('idade')}>Ordenar por Idade</Button>
+            <Button variant="outlined" onClick={() => ordenar('nome_completo')}>
+               Ordenar por Nome
+            </Button>
+            <Button variant="outlined" onClick={() => ordenar('idade')}>
+               Ordenar por Idade
+            </Button>
 
             <FormControl size="small" sx={{ minWidth: 220 }}>
                <InputLabel id="filtro-atendimento-label">Tipo de Atendimento</InputLabel>
@@ -57,7 +61,9 @@ export default function PacienteFiltroBar({
                   labelId="filtro-atendimento-label"
                   value={filtroAtendimento}
                   label="Tipo de Atendimento"
-                  onChange={(e: SelectChangeEvent) => setFiltroAtendimento(e.target.value)}
+                  onChange={(e: SelectChangeEvent) =>
+                     setFiltroAtendimento(e.target.value as 'todos' | 'particular' | 'convenio' | 'servico_social')
+                  }
                >
                   <MenuItem value="todos">Todos</MenuItem>
                   <MenuItem value="particular">Particular</MenuItem>

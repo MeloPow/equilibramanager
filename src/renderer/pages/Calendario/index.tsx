@@ -62,7 +62,7 @@ export default function Calendario() {
    const redirecionarParaNovaConsulta = (data: Date) => {
       // Mantém a data local SEM conversão para UTC
       const iso = format(data, "yyyy-MM-dd'T'HH:mm");
-      navigate(`/consulta/nova?dataHora=${encodeURIComponent(iso)}`);
+      navigate(`/consulta/novaconsulta?dataHora=${encodeURIComponent(iso)}`);
    };
 
    useEffect(() => {

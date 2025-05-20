@@ -11,11 +11,12 @@ import { buscarPacientePorId, atualizarPaciente } from '../../services/pacienteS
 import { Paciente } from '../../../types/Paciente';
 import './PacienteModule.css';
 import background from '../../../assets/images/background3.png';
-import FormularioBox from '../../components/forListaConsulta/FormularioCard';
-import CPFotimizado from '../../components/forNovoPaciente/XPCPFField';
-import TelefoneOtimizado from '../../components/forNovoPaciente/XPPhoneField';
-import DataOtimizada from '../../components/forNovoPaciente/XPDateField';
+import FormularioBox from '../../components/FormularioGlobal';
+import CPFotimizado from '../../components/forNewEditPaciente/XPCPFField';
+import TelefoneOtimizado from '../../components/forNewEditPaciente/XPPhoneField';
+import DataOtimizada from '../../components/forNewEditPaciente/XPDateField';
 import BotaoVoltar from '../../components/VoltarGlobal';
+import { formatarDataParaBr, converterDataParaISO } from '../../utils/formatarData';
 
 export default function EditarPaciente() {
     const navigate = useNavigate();
@@ -31,6 +32,7 @@ export default function EditarPaciente() {
         const carregarPaciente = async () => {
             try {
                 const data = await buscarPacientePorId(id);
+                data.data_nascimento = formatarDataParaBr(data.data_nascimento);
                 setPaciente(data);
             } catch (error) {
                 setErro('Erro ao carregar paciente');
@@ -42,9 +44,13 @@ export default function EditarPaciente() {
     const handleAtualizar = async () => {
         try {
             if (paciente) {
-                await atualizarPaciente(paciente);
+                const pacienteAtualizado = {
+                    ...paciente,
+                    data_nascimento: converterDataParaISO(paciente.data_nascimento)
+                };
+                await atualizarPaciente(pacienteAtualizado);
                 setSucesso(true);
-                setTimeout(() => navigate('/paciente/listarpacientes'), 1500);
+                setTimeout(() => navigate('/paciente/listarpacientes?reload=' + Date.now()), 1500);
             }
         } catch {
             setErro('Erro ao atualizar paciente');

@@ -12,6 +12,7 @@ export interface Consulta {
   id?: number;
   paciente: number;
   data_hora: string; // ISO string (YYYY-MM-DDTHH:mm:ss)
+  modalidade: 'presencial' | 'remota';
   status: StatusConsulta;
   observacoes?: string;
   paciente_nome: string;

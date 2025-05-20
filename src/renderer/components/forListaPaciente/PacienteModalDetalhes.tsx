@@ -4,6 +4,7 @@ import {
    Modal, Box, Typography, Button, Divider, useTheme, Avatar, Fade
 } from '@mui/material';
 import { Paciente } from '../../../types/Paciente';
+import { formatarDataParaBr } from '../../utils/formatarData';
 import PersonIcon from '@mui/icons-material/Person';
 
 interface Props {
@@ -49,7 +50,7 @@ export default function PacienteModalDetalhes({ open, onClose, paciente }: Props
                <Divider sx={{ mb: 2 }} />
 
                <Box sx={{ display: 'grid', gap: 2 }}>
-                  <Typography><strong>📅 Nascimento:</strong> {paciente.data_nascimento || '-'}</Typography>
+                  <Typography><strong>📅 Nascimento:</strong> {formatarDataParaBr(paciente.data_nascimento) || '-'}</Typography>
                   <Typography><strong>🧬 Sexo:</strong> {paciente.sexo}</Typography>
                   <Typography><strong>📞 Telefone:</strong> {paciente.telefone || '-'}</Typography>
                   <Typography><strong>📧 Email:</strong> {paciente.email || '-'}</Typography>

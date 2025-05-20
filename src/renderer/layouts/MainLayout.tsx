@@ -34,7 +34,7 @@ const CustomAppBar = styled(AppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<{ open?: boolean }>(({ theme, open }) => ({
     zIndex: theme.zIndex.drawer + 2,
-    backgroundColor: Colors.cinzaescuro,
+    backgroundColor: Colors.amareloescuro,
     height: 100,
     display: 'flex',
     justifyContent: 'center',
@@ -70,7 +70,7 @@ const CustomDrawer = styled(Drawer)(({ theme }: { theme: Theme }) => ({
     },
 }));
 
-const CustomListItem = styled(ListItemButton)(({ theme }) => ({
+const CustomListItem = styled(ListItemButton)(() => ({
     borderRadius: 30,
     margin: '8px 0',
     width: '100%',

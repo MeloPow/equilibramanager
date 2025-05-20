@@ -1,4 +1,4 @@
-// src/renderer/components/XPDateField.tsx
+// src/renderer/components/forNovoPaciente/XPDateField.tsx
 import { TextField, TextFieldProps } from '@mui/material';
 import { useState } from 'react';
 
@@ -35,18 +35,30 @@ export default function XPDateField({ value, onChange, ...rest }: XPDateFieldPro
   const formatarData = (texto: string): string => {
     let val = texto.replace(/\D/g, '');
     if (val.length > 8) val = val.slice(0, 8);
-    if (val.length >= 5) val = `${val.slice(0, 2)}/${val.slice(2, 4)}/${val.slice(4)}`;
-    else if (val.length >= 3) val = `${val.slice(0, 2)}/${val.slice(2)}`;
-    return val;
+
+    let dia = val.slice(0, 2);
+    let mes = val.slice(2, 4);
+    const ano = val.slice(4, 8);
+
+    if (parseInt(dia) > 31) dia = '31';
+    if (parseInt(mes) > 12) mes = '12';
+
+    let formatado = val;
+    if (val.length >= 5) formatado = `${dia}/${mes}/${ano}`;
+    else if (val.length >= 3) formatado = `${dia}/${mes}`;
+    else if (val.length >= 1) formatado = `${dia}`;
+
+    return formatado;
   };
 
   const tratarMudanca = (texto: string) => {
     const formatado = formatarData(texto);
+    const somenteNumeros = formatado.replace(/\D/g, '');
 
-    if (formatado.length === 10) {
+    if (somenteNumeros.length === 8) {
       const valido = isDataValida(formatado);
       setErro(!valido);
-      onChange(formatado);
+      if (valido) onChange(formatado);
     } else {
       setErro(false);
       onChange(formatado);

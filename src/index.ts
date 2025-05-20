@@ -22,7 +22,7 @@ import {
   listarRelatoriosPorPaciente,
   atualizarRelatorioEvolucao,
   deletarRelatorioEvolucao,
-} from './db/relatorio_evolucao';
+} from './db/relatorioEvolucao';
 
 // Declarações do Webpack
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;

@@ -12,9 +12,8 @@ import { Paciente } from '../../../types/Paciente';
 import BotaoVoltar from '../../components/VoltarGlobal';
 import background from '../../../assets/images/background3.png';
 import papel from '../../../assets/images/papeljapones.png';
-import FormularioAdd from '../../components/forListaConsulta/FormularioCard';
+import FormularioAdd from '../../components/FormularioGlobal';
 import { Colors } from '../../styles/Colors';
-import PacienteAutocomplete from '../../components/PacienteAutocomplete';
 
 export default function EditarConsulta() {
    const navigate = useNavigate();
@@ -24,6 +23,7 @@ export default function EditarConsulta() {
    const [pacienteNome, setPacienteNome] = useState<string>('');
    const [pacientes, setPacientes] = useState<Paciente[]>([]);
    const [dataHora, setDataHora] = useState<string>('');
+   const [modalidade, setModalidade] = useState<'presencial' | 'remota'>('presencial');
    const [status, setStatus] = useState<'agendada' | 'realizada' | 'não realizada' | 'cancelada'>('agendada');
    const [tipo, setTipo] = useState<TipoConsulta>('normal');
    const [foiPaga, setFoiPaga] = useState<boolean>(false);
@@ -46,6 +46,7 @@ export default function EditarConsulta() {
          setPacienteId(consulta.paciente);
          setPacienteNome(consulta.paciente_nome);
          setDataHora(consulta.data_hora);
+         setModalidade(consulta.modalidade || 'presencial');
          setStatus(consulta.status);
          setTipo(consulta.tipo || 'normal');
          setFoiPaga(consulta.foi_paga);
@@ -66,6 +67,7 @@ export default function EditarConsulta() {
          id: Number(id),
          paciente: pacienteId,
          data_hora: dataHora,
+         modalidade,
          status,
          observacoes,
          tipo,
@@ -108,6 +110,27 @@ export default function EditarConsulta() {
                InputLabelProps={{ shrink: true }}
                fullWidth sx={{ mb: 2 }}
             />
+
+            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+               <FormControlLabel
+                  control={
+                     <Checkbox
+                        checked={modalidade === 'presencial'}
+                        onChange={() => setModalidade('presencial')}
+                     />
+                  }
+                  label="Presencial"
+               />
+               <FormControlLabel
+                  control={
+                     <Checkbox
+                        checked={modalidade === 'remota'}
+                        onChange={() => setModalidade('remota')}
+                     />
+                  }
+                  label="Remota"
+               />
+            </Box>
 
             <TextField select label="Status" value={status} onChange={(e) => setStatus(e.target.value as any)} fullWidth sx={{ mb: 2 }}>
                <MenuItem value="agendada">Agendada</MenuItem>

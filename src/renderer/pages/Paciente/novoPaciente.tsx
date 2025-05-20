@@ -15,11 +15,12 @@ import { salvarPaciente } from '../../services/pacienteService';
 import './PacienteModule.css';
 import { Colors } from '../../styles/Colors';
 import background from '../../../assets/images/background3.png'
-import FormularioAdd from "../../components/forListaConsulta/FormularioCard"
+import FormularioAdd from "../../components/FormularioGlobal"
 import BotaoVoltar from '../../components/VoltarGlobal'
-import DataOtimizada from '../../components/forNovoPaciente/XPDateField';
-import CPFotimizado from '../../components/forNovoPaciente/XPCPFField';
-import TelefoneOtimizado from '../../components/forNovoPaciente/XPPhoneField'
+import DataOtimizada from '../../components/forNewEditPaciente/XPDateField';
+import CPFotimizado from '../../components/forNewEditPaciente/XPCPFField';
+import TelefoneOtimizado from '../../components/forNewEditPaciente/XPPhoneField'
+import { converterDataParaISO } from '../../utils/formatarData';
 
 export default function AdicionarPaciente() {
     const navigate = useNavigate();
@@ -50,11 +51,7 @@ export default function AdicionarPaciente() {
         setSnackbarOpen(false);
     };
 
-    const converterDataParaFormatoISO = (data: string) => {
-        const [dia, mes, ano] = data.split('/');
-        if (!dia || !mes || !ano) return null;
-        return `${ano}-${mes}-${dia}`;
-    };
+
 
     const handleSalvar = async () => {
         if (!nome || !telefone || !cpf || !dataNascimento || !sexo) {
@@ -64,7 +61,7 @@ export default function AdicionarPaciente() {
             return;
         }
 
-        const dataFormatada = converterDataParaFormatoISO(dataNascimento);
+        const dataFormatada = converterDataParaISO(dataNascimento);
         if (!dataFormatada) {
             setSnackbarMessage('Formato de data inválido');
             setSnackbarSeverity('error');
